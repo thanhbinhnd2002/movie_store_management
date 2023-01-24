@@ -1,40 +1,39 @@
 public class Phim extends MatHang{
-    private static int thoiGian;
-    private static double dungLuong;
-    private static String doPhanGiai;
+    private  int thoiGian;
+    private  double dungLuong;
+    private  String doPhanGiai;
     public Phim(){
 
     }
-
-    public Phim(String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueThepNgay, int thoiGian, double dungLuong, String doPhanGiai) {
-        super(tenMatHang, tenTacGia, namXuatBan, theLoai, giaThueThepNgay);
+    public Phim(String maMatHang, String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueTheoNgay, int thoiGian, double dungLuong, String doPhanGiai) {
+        super(maMatHang, tenMatHang, tenTacGia, namXuatBan, theLoai, giaThueTheoNgay);
         this.thoiGian = thoiGian;
         this.dungLuong = dungLuong;
         this.doPhanGiai = doPhanGiai;
     }
 
-    public static int getThoiGian() {
+    public int getThoiGian() {
         return thoiGian;
     }
 
-    public static void setThoiGian(int thoiGian) {
-        Phim.thoiGian = thoiGian;
+    public void setThoiGian(int thoiGian) {
+        this.thoiGian = thoiGian;
     }
 
-    public static double getDungLuong() {
+    public double getDungLuong() {
         return dungLuong;
     }
 
-    public static void setDungLuong(double dungLuong) {
-        Phim.dungLuong = dungLuong;
+    public void setDungLuong(double dungLuong) {
+        this.dungLuong = dungLuong;
     }
 
-    public static String getDoPhanGiai() {
+    public String getDoPhanGiai() {
         return doPhanGiai;
     }
 
-    public static void setDoPhanGiai(String doPhanGiai) {
-        Phim.doPhanGiai = doPhanGiai;
+    public void setDoPhanGiai(String doPhanGiai) {
+        this.doPhanGiai = doPhanGiai;
     }
 
     @Override

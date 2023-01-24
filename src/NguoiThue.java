@@ -1,17 +1,20 @@
+import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class NguoiThue {
+    private String maNguoiThue;
     private String ten;
     private String soDienThoai;
     private MatHang phimtruyen;
     private Date thoiGianMuon;
     private Date thoiGianTra;
-
+    private List<MatHang> lst = new ArrayList<>();
     private double soTienCuoc;
     DateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
     Scanner sc = new Scanner(System.in);
@@ -19,13 +22,22 @@ public class NguoiThue {
     public NguoiThue(){
     }
 
-    public NguoiThue(String ten, String soDienThoai, MatHang phimtruyen, Date thoiGianMuon, Date thoiGianTra, double soTienCuoc) {
+    public NguoiThue(String maNguoiThue, String ten, String soDienThoai, MatHang phimtruyen, Date thoiGianMuon, Date thoiGianTra, double soTienCuoc) {
+        this.maNguoiThue = maNguoiThue;
         this.ten = ten;
         this.soDienThoai = soDienThoai;
         this.phimtruyen = phimtruyen;
         this.thoiGianMuon = thoiGianMuon;
         this.thoiGianTra = thoiGianTra;
         this.soTienCuoc = soTienCuoc;
+    }
+
+    public String getMaNguoiThue() {
+        return maNguoiThue;
+    }
+
+    public void setMaNguoiThue(String maNguoiThue) {
+        this.maNguoiThue = maNguoiThue;
     }
 
     public String getTen() {
@@ -112,8 +124,11 @@ public class NguoiThue {
         return time;
     }
     public double tinhTienChoThue(){
-        double tienthue;
-        tienthue = this.tinhKhoangThoiGian(thoiGianMuon,thoiGianTra)*MatHang.getGiaThueTheoNgay();
+        double tienthue=0;
+        int soNgayMuon =this.tinhKhoangThoiGian(thoiGianMuon,thoiGianTra);
+        for (MatHang x : lst){
+            tienthue = soNgayMuon*x.getGiaThueTheoNgay();
+        }
         return tienthue;
     }
 }

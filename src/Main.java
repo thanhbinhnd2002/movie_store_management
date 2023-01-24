@@ -45,47 +45,55 @@ public class Main {
                             int i = sc.nextInt();
                             switch (i) {
                                 case 1:
-                                    MatHang phim = new Phim();
+                                    Phim phim = new Phim();
                                     System.out.println("Mời nhập thông tin: ");
                                     sc.nextLine();
-                                    Phim.setTenMatHang(sc.nextLine());
-                                    Phim.setTenTacGia(sc.nextLine());
-                                    Phim.setTheLoai(sc.nextLine());
-                                    Phim.setNamXuatBan(sc.nextInt());
-                                    Phim.setGiaThueTheoNgay(sc.nextDouble());
-                                    Phim.setDoPhanGiai(sc.nextLine());
-                                    Phim.setDungLuong(sc.nextDouble());
-                                    Phim.setThoiGian(sc.nextInt());
+                                    phim.setMaMatHang(sc.nextLine());
+                                    phim.setTenMatHang(sc.nextLine());
+                                    phim.setTenTacGia(sc.nextLine());
+                                    phim.setNamXuatBan(sc.nextInt());
+                                    phim.setTheLoai(sc.nextLine());
+                                    phim.setGiaThueTheoNgay(sc.nextDouble());
+                                    phim.setThoiGian(sc.nextInt());
+                                    phim.setDungLuong(sc.nextDouble());
+                                    phim.setDoPhanGiai(sc.nextLine());
                                     cuaHangThuePhim.themMatHang(phim);
                                     break;
                                 case 2:
-                                MatHang truyen = new Truyen();
+                                Truyen truyen = new Truyen();
                                 System.out.println("Mời nhập thông tin: ");
                                 sc.nextLine();
-                                Truyen.setTenMatHang(sc.nextLine());
-                                Truyen.setTenTacGia(sc.nextLine());
-                                Truyen.setTheLoai(sc.nextLine());
-                                Truyen.setNamXuatBan(sc.nextInt());
-                                Truyen.setGiaThueTheoNgay(sc.nextDouble());
-                                Truyen.setSoTrang(sc.nextInt());
-                                Truyen.setKhoGiay(sc.nextLine());
-                                Truyen.setNgonNgu(sc.nextLine());
+                                truyen.setMaMatHang(sc.nextLine());
+
+                                String str = sc.nextLine();
+                                switch (str){
+                                    case "A0": truyen.setKhoGiay(KhoGiay.A0);break;
+                                    case "A1": truyen.setKhoGiay(KhoGiay.A1);break;
+                                    case "A2": truyen.setKhoGiay(KhoGiay.A2);break;
+                                    default:
+                                        System.out.println("Nhập sai");
+                                        break;
+                                }
                                 cuaHangThuePhim.themMatHang(truyen);
                                 break;
                             }break;
                         case 2:
                             System.out.println("----------------------");
-                            System.out.println("1.Xóa phim ");
-                            System.out.println("2.Xóa truyện ");
+                            System.out.println("1.Xóa mặt hàng ");
+                            System.out.println("2.Xóa người thuê ");
                             System.out.println("----------------------");
                             System.out.println("Mời chọn từ 1-2");
                             int j = sc.nextInt();
                             switch (j) {
                                 case 1:
+                                    System.out.println("Mời nhập mã mặt hàng muốn xóa: ");
+                                    cuaHangThuePhim.xoaMatHang(sc.nextLine());
                                     break;
                                 case 2:
+                                    System.out.println("Mời nhập mã người thuê muốn xóa: ");
+                                    cuaHangThuePhim.xoaNguoiThue(sc.nextLine());
                                     break;
-                                System.out.println("Mời nhập phim truyện muốn xóa: ");
+
                             }
                             break;
                         case 3:

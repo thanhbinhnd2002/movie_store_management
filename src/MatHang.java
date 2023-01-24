@@ -1,14 +1,17 @@
 public abstract class MatHang {
-    private static String tenMatHang;
-    private static String tenTacGia;
-    private static int namXuatBan;
-    private static String theLoai;
-    private static double giaThueTheoNgay;
-    public MatHang(){
+    private  String maMatHang;
+    private  String tenMatHang;
+    private  String tenTacGia;
+    private  int namXuatBan;
+    private  String theLoai;
+    private  double giaThueTheoNgay;
+    //private Dat
 
+    public MatHang() {
     }
 
-    public MatHang(String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueTheoNgay) {
+    public MatHang(String maMatHang, String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueTheoNgay) {
+        this.maMatHang = maMatHang;
         this.tenMatHang = tenMatHang;
         this.tenTacGia = tenTacGia;
         this.namXuatBan = namXuatBan;
@@ -16,45 +19,54 @@ public abstract class MatHang {
         this.giaThueTheoNgay = giaThueTheoNgay;
     }
 
-    public static String getTenMatHang() {
+    public String getMaMatHang() {
+        return maMatHang;
+    }
+
+    public void setMaMatHang(String maMatHang) {
+        this.maMatHang = maMatHang;
+    }
+
+    public String getTenMatHang() {
         return tenMatHang;
     }
 
-    public static void setTenMatHang(String tenMatHang) {
-        MatHang.tenMatHang = tenMatHang;
+    public void setTenMatHang(String tenMatHang) {
+        this.tenMatHang = tenMatHang;
     }
 
-    public static String getTenTacGia() {
+    public String getTenTacGia() {
         return tenTacGia;
     }
 
-    public static void setTenTacGia(String tenTacGia) {
-        MatHang.tenTacGia = tenTacGia;
+    public void setTenTacGia(String tenTacGia) {
+        this.tenTacGia = tenTacGia;
     }
 
-    public static int getNamXuatBan() {
+    public int getNamXuatBan() {
         return namXuatBan;
     }
 
-    public static void setNamXuatBan(int namXuatBan) {
-        MatHang.namXuatBan = namXuatBan;
+    public void setNamXuatBan(int namXuatBan) {
+        this.namXuatBan = namXuatBan;
     }
 
-    public static String getTheLoai() {
+    public String getTheLoai() {
         return theLoai;
     }
 
-    public static void setTheLoai(String theLoai) {
-        MatHang.theLoai = theLoai;
+    public void setTheLoai(String theLoai) {
+        this.theLoai = theLoai;
     }
 
-    public static double getGiaThueTheoNgay() {
+    public double getGiaThueTheoNgay() {
         return giaThueTheoNgay;
     }
 
-    public static void setGiaThueTheoNgay(double giaThueTheoNgay) {
-        MatHang.giaThueTheoNgay = giaThueTheoNgay;
+    public void setGiaThueTheoNgay(double giaThueTheoNgay) {
+        this.giaThueTheoNgay = giaThueTheoNgay;
     }
+
     public void inTTin(){
     };
 }
