@@ -1,12 +1,84 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class CuaHangThuePhim {
     private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
     private List<MatHang> matHangList = new ArrayList<MatHang>();
+    private List<MatHang> matHangThueList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    public int tinhKhoangThoiGian(Date start, Date end) {
+        int time = 0;
+        try {
+            // calculating the difference b/w startDate and endDate
+            long getDiff = end.getTime() - start.getTime();
+            // using TimeUnit class from java.util.concurrent package
+            long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+            time = (int) getDaysDiff;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
+    public double tinhTienChoThue(NguoiThue nguoiThue) {
+        //NguoiThue nguoiThue = new NguoiThue();
+        double tienthue = 0;
+        int soNgayMuon = this.tinhKhoangThoiGian(nguoiThue.getThoiGianMuon(), nguoiThue.getThoiGianTra());
+        for (MatHang x : matHangThueList) {
+            tienthue = soNgayMuon * x.getGiaThueTheoNgay();
+        }
+        return tienthue;
+    }
+
+    public void thueTruyenPhim() {
+        boolean q = true;
+        while (q) {
+            System.out.println("--------------");
+            System.out.println("1.Thuê truyện");
+            System.out.println("2.Thuê phim");
+            System.out.println("3.Thoát");
+            System.out.println("--------------");
+            System.out.print("Mời nhập (1-3):");
+            String a = sc.nextLine();
+
+            switch (a) {
+                case "1" :
+                    System.out.println("Các mặt hàng hiện có: ");
+                    for (MatHang x : matHangList) {
+                        x.inTTin();
+                    }
+                    System.out.println("Nhâp mã mặt hàng muốn mượn: ");
+                    String str = sc.nextLine();
+                    for (MatHang x : matHangList) {
+                        if (str.equals(x.getMaMatHang())) {
+                            matHangThueList.add(x);
+                            matHangList.remove(x);
+                        } else {
+                            System.out.println("Không tìm thấy mặt hàng muốn mượn");
+                        }
+                    }
+                    //for (Truyen x :  )
+//                    Truyen truyen = new Truyen();
+//                    truyen.setMaMatHang(sc.nextLine());
+//                    truyen.setTenMatHang(sc.nextLine());
+//                    truyen.setTenTacGia(sc.nextLine());
+
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    q = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     public boolean themNguoiThue(NguoiThue a) {
         nguoiThueList.add(a);
@@ -22,10 +94,10 @@ public class CuaHangThuePhim {
     public void suaNguoiThue(String maNguoiThue) throws ParseException {
         for (NguoiThue x : nguoiThueList) {
             if (x.getMaNguoiThue().equals(maNguoiThue)) {
-                x.setMaNguoiThue(sc.nextLine());
+                //x.setMaNguoiThue(sc.nextLine());
                 x.setTen(sc.nextLine());
                 x.setSoDienThoai(sc.nextLine());
-                x.setPhimtruyen(sc.nextLine());
+//
                 String str1 = sc.nextLine();
                 Date date1 = spdf.parse(str1);
                 x.setThoiGianMuon(date1);
@@ -38,20 +110,33 @@ public class CuaHangThuePhim {
 //            NguoiThue b = new NguoiThue();
 //            int i = nguoiThueList.indexOf(a);
 //            nguoiThueList.set(i,b);
-
+            else {
+                System.out.println("Không tìm thấy người thuê này!");
+            }
+//
         }
-//        else {
-//            System.out.println("Không tìm thấy người thuê này!");
+
     }
 
-}
-
     public void suaMatHang(String maMatHang) {
-        if (matHangList.contains(matHang) == true) {
-
-        } else {
-            System.out.println("Không tìm thấy mặt hàng này!");
+        for (MatHang x : matHangList) {
+            if (x.getMaMatHang().equals(maMatHang)) {
+                //x.setMaMatHang(sc.nextLine());
+                System.out.print("Nhập tên mặt hàng: ");
+                x.setTenMatHang(sc.nextLine());
+                System.out.println("Nhập tên tác giả: ");
+                x.setTenTacGia(sc.nextLine());
+                System.out.print("Nhập tên thể loại: ");
+                x.setTheLoai(sc.nextLine());
+                System.out.println("Nhập giá thuê theo ngày: ");
+                x.setGiaThueTheoNgay(sc.nextDouble());
+                System.out.println("nhập năm xuất bản");
+                x.setNamXuatBan(sc.nextInt());
+            } else {
+                System.out.println("Không tìm thấy mặt hàng này!");
+            }
         }
+
     }
 
     public void xoaNguoiThue(String a) {
