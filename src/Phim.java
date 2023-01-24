@@ -1,13 +1,40 @@
 public class Phim extends MatHang{
-    private int thoiGian;
-    private double dungLuong;
-    private String doPhanGiai;
+    private static int thoiGian;
+    private static double dungLuong;
+    private static String doPhanGiai;
+    public Phim(){
+
+    }
 
     public Phim(String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueThepNgay, int thoiGian, double dungLuong, String doPhanGiai) {
         super(tenMatHang, tenTacGia, namXuatBan, theLoai, giaThueThepNgay);
         this.thoiGian = thoiGian;
         this.dungLuong = dungLuong;
         this.doPhanGiai = doPhanGiai;
+    }
+
+    public static int getThoiGian() {
+        return thoiGian;
+    }
+
+    public static void setThoiGian(int thoiGian) {
+        Phim.thoiGian = thoiGian;
+    }
+
+    public static double getDungLuong() {
+        return dungLuong;
+    }
+
+    public static void setDungLuong(double dungLuong) {
+        Phim.dungLuong = dungLuong;
+    }
+
+    public static String getDoPhanGiai() {
+        return doPhanGiai;
+    }
+
+    public static void setDoPhanGiai(String doPhanGiai) {
+        Phim.doPhanGiai = doPhanGiai;
     }
 
     @Override

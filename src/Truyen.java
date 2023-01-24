@@ -1,7 +1,11 @@
 public class Truyen extends MatHang{
-    private int soTrang;
-    private KhoGiay khoGiay;
-    private String ngonNgu;
+    private static int soTrang;
+    private static KhoGiay khoGiay;
+    private static String ngonNgu;
+    public Truyen(){
+        super();
+
+    }
 
     public Truyen(String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueTheoNgay, int soTrang, KhoGiay khoGiay, String ngonNgu) {
         super(tenMatHang, tenTacGia, namXuatBan, theLoai, giaThueTheoNgay);
@@ -10,37 +14,37 @@ public class Truyen extends MatHang{
         this.ngonNgu = ngonNgu;
     }
 
-    public int getSoTrang() {
+    public static int getSoTrang() {
         return soTrang;
     }
 
-    public void setSoTrang(int soTrang) {
-        this.soTrang = soTrang;
+    public static void setSoTrang(int soTrang) {
+        Truyen.soTrang = soTrang;
     }
 
-    public KhoGiay getKhoGiay() {
+    public static KhoGiay getKhoGiay() {
         return khoGiay;
     }
 
-    public void setKhoGiay(KhoGiay khoGiay) {
-        this.khoGiay = khoGiay;
+    public static void setKhoGiay(KhoGiay khoGiay) {
+        Truyen.khoGiay = khoGiay;
     }
 
-    public String getNgonNgu() {
+    public static String getNgonNgu() {
         return ngonNgu;
     }
 
-    public void setNgonNgu(String ngonNgu) {
-        this.ngonNgu = ngonNgu;
+    public static void setNgonNgu(String ngonNgu) {
+        Truyen.ngonNgu = ngonNgu;
     }
 
     @Override
     public void inTTin() {
         super.inTTin();
-        System.out.println("ten Phim la: "+ this.getTenMatHang());
-        System.out.println("ten dao dien la: "+this.getTenTacGia());
-        System.out.println("nam xuat ban la: "+ this.getNamXuatBan());
-        System.out.println("the loai la: "+ this.getTheLoai());
+        System.out.println("ten Phim la: "+ MatHang.getTenMatHang());
+        System.out.println("ten dao dien la: "+MatHang.getTenTacGia());
+        System.out.println("nam xuat ban la: "+ MatHang.getNamXuatBan());
+        System.out.println("the loai la: "+ MatHang.getTheLoai());
         System.out.println("so trang la:"+ soTrang);
         System.out.println("kho giay la: "+ khoGiay);
         System.out.println("ngon ngu la: "+ ngonNgu);

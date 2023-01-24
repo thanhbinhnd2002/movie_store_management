@@ -70,4 +70,14 @@ public class CuaHangThuePhim {
         }
         return lsMH;
     }
+    public List<MatHang> timKiem(String tenTheLoai){
+        List<MatHang> lsMH = new ArrayList<>();
+        for (Object x : matHangList){
+            MatHang matHang = (MatHang) x;
+            if (matHang.getTenMatHang().equals(tenTheLoai)){
+                lsMH.add(matHang);
+            }
+        }
+        return lsMH;
+    }
 }

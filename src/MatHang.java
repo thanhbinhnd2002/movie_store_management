@@ -1,9 +1,12 @@
 public abstract class MatHang {
-    private String tenMatHang;
-    private String tenTacGia;
-    private int namXuatBan;
-    private String theLoai;
+    private static String tenMatHang;
+    private static String tenTacGia;
+    private static int namXuatBan;
+    private static String theLoai;
     private static double giaThueTheoNgay;
+    public MatHang(){
+
+    }
 
     public MatHang(String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueTheoNgay) {
         this.tenMatHang = tenMatHang;
@@ -13,44 +16,44 @@ public abstract class MatHang {
         this.giaThueTheoNgay = giaThueTheoNgay;
     }
 
-    public String getTenMatHang() {
+    public static String getTenMatHang() {
         return tenMatHang;
     }
 
-    public void setTenMatHang(String tenMatHang) {
-        this.tenMatHang = tenMatHang;
+    public static void setTenMatHang(String tenMatHang) {
+        MatHang.tenMatHang = tenMatHang;
     }
 
-    public String getTenTacGia() {
+    public static String getTenTacGia() {
         return tenTacGia;
     }
 
-    public void setTenTacGia(String tenTacGia) {
-        this.tenTacGia = tenTacGia;
+    public static void setTenTacGia(String tenTacGia) {
+        MatHang.tenTacGia = tenTacGia;
     }
 
-    public int getNamXuatBan() {
+    public static int getNamXuatBan() {
         return namXuatBan;
     }
 
-    public void setNamXuatBan(int namXuatBan) {
-        this.namXuatBan = namXuatBan;
+    public static void setNamXuatBan(int namXuatBan) {
+        MatHang.namXuatBan = namXuatBan;
     }
 
-    public String getTheLoai() {
+    public static String getTheLoai() {
         return theLoai;
     }
 
-    public void setTheLoai(String theLoai) {
-        this.theLoai = theLoai;
+    public static void setTheLoai(String theLoai) {
+        MatHang.theLoai = theLoai;
     }
 
     public static double getGiaThueTheoNgay() {
         return giaThueTheoNgay;
     }
 
-    public void setGiaThueTheoNgay(double giaThueTheoNgay) {
-        this.giaThueTheoNgay = giaThueTheoNgay;
+    public static void setGiaThueTheoNgay(double giaThueTheoNgay) {
+        MatHang.giaThueTheoNgay = giaThueTheoNgay;
     }
     public void inTTin(){
     };
