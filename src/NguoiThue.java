@@ -4,13 +4,13 @@ public class NguoiThue {
     private String ten;
     private String soDienThoai;
     private MatHang phimtruyen;
-    private Date thoigian;
+    private int thoigian;
     private double soTienCuoc;
     public NguoiThue(){
 
     }
 
-    public NguoiThue(String ten, String soDienThoai, MatHang phimtruyen, Date thoigian, double soTienCuoc) {
+    public NguoiThue(String ten, String soDienThoai, MatHang phimtruyen, int thoigian, double soTienCuoc) {
         this.ten = ten;
         this.soDienThoai = soDienThoai;
         this.phimtruyen = phimtruyen;
@@ -42,11 +42,11 @@ public class NguoiThue {
         this.phimtruyen = phimtruyen;
     }
 
-    public Date getThoigian() {
+    public int getThoigian() {
         return thoigian;
     }
 
-    public void setThoigian(Date thoigian) {
+    public void setThoigian(int thoigian) {
         this.thoigian = thoigian;
     }
 
@@ -56,5 +56,10 @@ public class NguoiThue {
 
     public void setSoTienCuoc(double soTienCuoc) {
         this.soTienCuoc = soTienCuoc;
+    }
+    public double tinhTienChoThue(){
+        double tienthue;
+        tienthue = thoigian*MatHang.getGiaThueTheoNgay();
+        return tienthue;
     }
 }

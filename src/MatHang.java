@@ -3,7 +3,7 @@ public abstract class MatHang {
     private String tenTacGia;
     private int namXuatBan;
     private String theLoai;
-    private double giaThueTheoNgay;
+    private static double giaThueTheoNgay;
 
     public MatHang(String tenMatHang, String tenTacGia, int namXuatBan, String theLoai, double giaThueTheoNgay) {
         this.tenMatHang = tenMatHang;
@@ -45,7 +45,7 @@ public abstract class MatHang {
         this.theLoai = theLoai;
     }
 
-    public double getGiaThueTheoNgay() {
+    public static double getGiaThueTheoNgay() {
         return giaThueTheoNgay;
     }
 
