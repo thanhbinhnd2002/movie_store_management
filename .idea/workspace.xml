@@ -8,7 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CuaHangThuePhim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CuaHangThuePhim.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NguoiThue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NguoiThue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Phim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Phim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Truyen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Truyen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

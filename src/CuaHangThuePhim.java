@@ -36,43 +36,41 @@ public class CuaHangThuePhim {
     }
 
     public void thueTruyenPhim() {
-        boolean q = true;
-        while (q) {
+        boolean bool = true;
+        while (bool) {
             System.out.println("--------------");
-            System.out.println("1.Thuê truyện");
-            System.out.println("2.Thuê phim");
+            System.out.println("1.Thuê truyện phim");
+            System.out.println("2.Tính tiền cho thuê");
             System.out.println("3.Thoát");
             System.out.println("--------------");
             System.out.print("Mời nhập (1-3):");
             String a = sc.nextLine();
 
             switch (a) {
-                case "1" :
+                case "1":
                     System.out.println("Các mặt hàng hiện có: ");
                     for (MatHang x : matHangList) {
                         x.inTTin();
                     }
                     System.out.println("Nhâp mã mặt hàng muốn mượn: ");
                     String str = sc.nextLine();
-                    for (MatHang x : matHangList) {
+                    //for (MatHang x : matHangList) {
+                    for (int i =0;i<matHangList.size();i++) {
+                        MatHang x = matHangList.get(i);
                         if (str.equals(x.getMaMatHang())) {
                             matHangThueList.add(x);
                             matHangList.remove(x);
                         } else {
                             System.out.println("Không tìm thấy mặt hàng muốn mượn");
                         }
+                        //}
                     }
-                    //for (Truyen x :  )
-//                    Truyen truyen = new Truyen();
-//                    truyen.setMaMatHang(sc.nextLine());
-//                    truyen.setTenMatHang(sc.nextLine());
-//                    truyen.setTenTacGia(sc.nextLine());
-
                     break;
                 case "2":
+
                     break;
                 case "3":
-                    q = false;
+                    bool = false;
                     break;
                 default:
                     break;

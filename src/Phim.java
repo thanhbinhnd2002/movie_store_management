@@ -12,6 +12,7 @@ public class Phim extends MatHang{
         this.doPhanGiai = doPhanGiai;
     }
 
+
     public int getThoiGian() {
         return thoiGian;
     }
@@ -39,12 +40,13 @@ public class Phim extends MatHang{
     @Override
     public void inTTin() {
         super.inTTin();
-        System.out.println("ten Phim la: "+ this.getTenMatHang());
-        System.out.println("ten dao dien la: "+this.getTenTacGia());
-        System.out.println("nam xuat ban la: "+ this.getNamXuatBan());
-        System.out.println("the loai la : "+ this.getTheLoai());
-        System.out.println("thoi gian la: "+ thoiGian);
-        System.out.println("dung luong la: "+ dungLuong);
-        System.out.println("do phan giai la: "+ doPhanGiai);
+        System.out.print("Mã mặt hàng: "+ this.getMaMatHang());
+        System.out.print("ten Phim la: "+ this.getTenMatHang());
+        System.out.print("ten dao dien la: "+this.getTenTacGia());
+        System.out.print("nam xuat ban la: "+ this.getNamXuatBan());
+        System.out.print("the loai la : "+ this.getTheLoai());
+        System.out.print("thoi gian la: "+ thoiGian);
+        System.out.print("dung luong la: "+ dungLuong);
+        System.out.print("do phan giai la: "+ doPhanGiai);
     }
 }

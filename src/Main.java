@@ -33,7 +33,7 @@ public class Main {
                     System.out.println("4.Tìm kiếm phim truyện ");
                     System.out.println("5.Tìm kiếm người đang thuê phim truyện");
                     System.out.println("----------------------");
-                    System.out.println("Mời nhập(1-5): ");
+                    System.out.print("Mời nhập(1-5): ");
                     int m = sc.nextInt();
                     switch (m) {
                         case 1:
@@ -41,7 +41,7 @@ public class Main {
                             System.out.println("1.Thêm phim ");
                             System.out.println("2.Thêm truyện ");
                             System.out.println("----------------------");
-                            System.out.println("Mời chọn (1-2): ");
+                            System.out.print("Mời chọn (1-2): ");
                             int i = sc.nextInt();
                             switch (i) {
                                 case 1:
@@ -82,10 +82,12 @@ public class Main {
                                     truyen.setGiaThueTheoNgay(sc.nextDouble());
                                     System.out.println("Mời nhập năm xuất bản: ");
                                     truyen.setNamXuatBan(sc.nextInt());
+                                    sc.nextLine();
                                     System.out.println("Mời nhập thể loại: ");
                                     truyen.setTheLoai(sc.nextLine());
                                     System.out.println("Mời nhập số trang: ");
                                     truyen.setSoTrang(sc.nextInt());
+                                    sc.nextLine();
                                     System.out.println("Mời nhập khổ giấy: ");
                                     String str = sc.nextLine();
                                     switch (str) {

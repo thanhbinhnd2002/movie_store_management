@@ -41,12 +41,13 @@ public class Truyen extends MatHang{
     @Override
     public void inTTin() {
         super.inTTin();
-        System.out.println("ten Phim la: "+ this.getTenMatHang());
-        System.out.println("ten dao dien la: "+this.getTenTacGia());
-        System.out.println("nam xuat ban la: "+ this.getNamXuatBan());
-        System.out.println("the loai la: "+ this.getTheLoai());
-        System.out.println("so trang la:"+ soTrang);
-        System.out.println("kho giay la: "+ khoGiay);
-        System.out.println("ngon ngu la: "+ ngonNgu);
+        System.out.println("Mã phim là: "+ this.getMaMatHang());
+        System.out.println("Tên Phim là: "+ this.getTenMatHang());
+        System.out.println("Tên đạo diễn là: "+this.getTenTacGia());
+        System.out.println("Năm xuất bản là: "+ this.getNamXuatBan());
+        System.out.println("Thể loại là: "+ this.getTheLoai());
+        System.out.println("Số trang là:"+ soTrang);
+        System.out.println("Khổ giấy là: "+ khoGiay);
+        System.out.println("Ngôn ngữ là: "+ ngonNgu);
     }
 }
