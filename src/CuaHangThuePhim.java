@@ -59,7 +59,9 @@ public class CuaHangThuePhim {
                         MatHang x = matHangList.get(i);
                         if (str.equals(x.getMaMatHang())) {
                             matHangThueList.add(x);
+                            //
                             matHangList.remove(x);
+                            //
                         } else {
                             System.out.println("Không tìm thấy mặt hàng muốn mượn");
                         }
@@ -67,7 +69,7 @@ public class CuaHangThuePhim {
                     }
                     break;
                 case "2":
-
+                    //System.out.println(tinhTienChoThue());
                     break;
                 case "3":
                     bool = false;
@@ -116,43 +118,56 @@ public class CuaHangThuePhim {
 
     }
 
-    public void suaMatHang(String maMatHang) {
+    public boolean suaMatHang(String maMatHang) {
         for (MatHang x : matHangList) {
             if (x.getMaMatHang().equals(maMatHang)) {
                 //x.setMaMatHang(sc.nextLine());
                 System.out.print("Nhập tên mặt hàng: ");
+                sc.nextLine();
                 x.setTenMatHang(sc.nextLine());
-                System.out.println("Nhập tên tác giả: ");
+                System.out.print("Nhập tên tác giả: ");
                 x.setTenTacGia(sc.nextLine());
                 System.out.print("Nhập tên thể loại: ");
                 x.setTheLoai(sc.nextLine());
-                System.out.println("Nhập giá thuê theo ngày: ");
+                System.out.print("Nhập giá thuê theo ngày: ");
                 x.setGiaThueTheoNgay(sc.nextDouble());
-                System.out.println("nhập năm xuất bản");
+                System.out.print("nhập năm xuất bản: ");
                 x.setNamXuatBan(sc.nextInt());
+                return true;
             } else {
                 System.out.println("Không tìm thấy mặt hàng này!");
             }
         }
-
+        return false;
     }
 
     public void xoaNguoiThue(String a) {
-        for (NguoiThue x : nguoiThueList) {
+        //for (NguoiThue x : nguoiThueList) {
+        for (int i = 0;i<nguoiThueList.size();i++){
+            NguoiThue x = nguoiThueList.get(i);
             if (x.getMaNguoiThue().equals(a)) {
                 nguoiThueList.remove(x);
+                System.out.println("Xóa thành công");
+            }
+            else {
+                System.out.println("Không tìm thấy người thuê muốn xóa");
             }
         }
 
     }
 
     public void xoaMatHang(String a) {
-        for (MatHang x : matHangList) {
+        //for (MatHang x : matHangList) {
+        for (int i = 0;i<matHangList.size();i++){
+            MatHang x = matHangList.get(i);
             if (x.getMaMatHang().equals(a)) {
-                nguoiThueList.remove(x);
+                matHangList.remove(x);
+                System.out.println("Xóa thành công");
+            }
+            else{
+                System.out.println("Không tìm thấy mặt hàng này");
             }
         }
-
     }
 
     public List<MatHang> timMHTheoTenTruyenPhim(String tenTruyenPhim) {
