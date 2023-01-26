@@ -11,7 +11,8 @@ public class CuaHangThuePhim extends MySqlService {
     private List<MatHang> matHangThueList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
-    public CuaHangThuePhim(){
+
+    public CuaHangThuePhim() {
         super();
     }
 
@@ -102,16 +103,20 @@ public class CuaHangThuePhim extends MySqlService {
             preStatement.setInt(4, a.getNamXuatBan());
             preStatement.setString(5, a.getTheLoai());
             preStatement.setDouble(6, a.getGiaThueTheoNgay());
-            preStatement.setInt(7,0);
-            preStatement.setInt(8,0);
-            preStatement.setString(9,"null");
+            preStatement.setInt(7, 0);
+            preStatement.setInt(8, 0);
+            preStatement.setString(9, "null");
             preStatement.setInt(10, a.getSoTrang());
-            String str =null;
-            switch (a.getKhoGiay()){
-                case A0 : str ="A0";
-                case A1:  str = "A1";
-                case A2:str="A2";
-                default: break;
+            String str = null;
+            switch (a.getKhoGiay()) {
+                case A0:
+                    str = "A0";
+                case A1:
+                    str = "A1";
+                case A2:
+                    str = "A2";
+                default:
+                    break;
 
             }
             preStatement.setString(11, str);
@@ -144,9 +149,9 @@ public class CuaHangThuePhim extends MySqlService {
             preStatement.setInt(7, a.getThoiGian());
             preStatement.setDouble(8, a.getDungLuong());
             preStatement.setString(9, a.getDoPhanGiai());
-            preStatement.setInt(10,0);
-            preStatement.setString(11,"null");
-            preStatement.setString(12,"null");
+            preStatement.setInt(10, 0);
+            preStatement.setString(11, "null");
+            preStatement.setString(12, "null");
             int result = preStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -185,30 +190,8 @@ public class CuaHangThuePhim extends MySqlService {
 
     }
 
-        public boolean suaMatHang(String maMatHang) {
-        for (MatHang x : matHangList) {
-            if (x.getMaMatHang().equals(maMatHang)) {
-                //x.setMaMatHang(sc.nextLine());
-                System.out.print("Nhập tên mặt hàng: ");
-                sc.nextLine();
-                x.setTenMatHang(sc.nextLine());
-                System.out.print("Nhập tên tác giả: ");
-                x.setTenTacGia(sc.nextLine());
-                System.out.print("Nhập tên thể loại: ");
-                x.setTheLoai(sc.nextLine());
-                System.out.print("Nhập giá thuê theo ngày: ");
-                x.setGiaThueTheoNgay(sc.nextDouble());
-                System.out.print("nhập năm xuất bản: ");
-                x.setNamXuatBan(sc.nextInt());
 
-                return true;
-            } else {
-                System.out.println("Không tìm thấy mặt hàng này!");
-            }
-        }
-        return false;
-    }
-    public List<MatHang> layDanhSachMatHang(){
+    public List<MatHang> layDanhSachMatHang() {
         List<MatHang> dsMH = new ArrayList<>();
         try {
             String sql1 = "SELECT `MaMatHang`, `TenMatHang`, `TenTacGia`, `NamXuatBan`, `TheLoai`, `GiaThueTheoNgay`, `ThoiGian`, `DungLuong`, `DoPhanGiai` from `mathangtonkho` where MaMatHang LIKE 'P%'";
@@ -244,11 +227,15 @@ public class CuaHangThuePhim extends MySqlService {
                 truyen.setGiaThueTheoNgay(result.getDouble(6));
                 truyen.setSoTrang(result.getInt(7));
                 String str = result.getString(8);
-                switch (str){
-                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
-                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
-                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
-                    default: truyen.setKhoGiay(null);
+                switch (str) {
+                    case "A0":
+                        truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1":
+                        truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2":
+                        truyen.setKhoGiay(KhoGiay.A2);
+                    default:
+                        truyen.setKhoGiay(null);
                 }
                 truyen.setNgonNgu(result.getString(9));
                 dsMH.add(truyen);
@@ -261,10 +248,45 @@ public class CuaHangThuePhim extends MySqlService {
 //        }
         return dsMH;
     }
-    public boolean chinhSuaPhim(Phim phim) {
+    public boolean kiemTraMatHang(String maMatHang){
         try {
-            String sql = "update phimtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
+            String sql = "select * from mathangtonkho where MaMatHang=? ";
             PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, maMatHang);
+
+            ResultSet result = preStatement.executeQuery();
+            if (result.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean chinhSuaPhim(String maMatHang) {
+        Phim phim = new Phim();
+        try {
+            String sql = "update mathangtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            System.out.print("Nhập tên mặt hàng: ");
+            phim.setTenMatHang(sc.nextLine());
+            System.out.print("Nhập tên tác giả: ");
+            phim.setTenTacGia(sc.nextLine());
+            System.out.print("nhập năm xuất bản: ");
+            phim.setNamXuatBan(sc.nextInt());
+            sc.nextLine();
+            System.out.print("Nhập tên thể loại: ");
+            phim.setTheLoai(sc.nextLine());
+            System.out.print("Nhập giá thuê theo ngày: ");
+            phim.setGiaThueTheoNgay(sc.nextDouble());
+            
+            System.out.println("Nhập Thời gian: ");
+            phim.setThoiGian(sc.nextInt());
+            sc.nextLine();
+            System.out.println("Nhập dung lượng: ");
+            phim.setDungLuong(sc.nextDouble());
+            System.out.println("Nhập độ phân giải: ");
+            phim.setDoPhanGiai(sc.nextLine());
             preStatement.setString(1, phim.getTenMatHang());
             preStatement.setString(2, phim.getTenTacGia());
             preStatement.setInt(3, phim.getNamXuatBan());
@@ -273,6 +295,8 @@ public class CuaHangThuePhim extends MySqlService {
             preStatement.setInt(6, phim.getThoiGian());
             preStatement.setDouble(7, phim.getDungLuong());
             preStatement.setString(8, phim.getDoPhanGiai());
+            preStatement.setString(9,maMatHang);
+            //if (preStatement.setString(9,maMatHang) != "")
             int result = preStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -282,18 +306,69 @@ public class CuaHangThuePhim extends MySqlService {
         }
         return false;
     }
-    public boolean chinhSuaTruyen(Truyen truyen) {
+
+    public boolean chinhSuaTruyen(String MaMatHang) {
+        Truyen truyen = new Truyen();
         try {
-            String sql = "update mathangtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
+            String sql = "update mathangtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, SoTrang=?, KhoGiay=?, NgonNgu=? where MaMatHang=?";
             PreparedStatement preStatement = conn.prepareStatement(sql);
+            System.out.print("Nhập tên mặt hàng: ");
+            sc.nextLine();
+            truyen.setTenMatHang(sc.nextLine());
+            System.out.print("Nhập tên tác giả: ");
+            truyen.setTenTacGia(sc.nextLine());
+            System.out.print("nhập năm xuất bản: ");
+            truyen.setNamXuatBan(sc.nextInt());
+            sc.nextLine();
+            System.out.print("Nhập tên thể loại: ");
+            truyen.setTheLoai(sc.nextLine());
+            System.out.print("Nhập giá thuê theo ngày: ");
+            truyen.setGiaThueTheoNgay(sc.nextDouble());
+            System.out.println("Nhập ngôn ngữ: ");
+            truyen.setNgonNgu(sc.nextLine());
+            System.out.println("Nhập khổ giấy: ");
+            String str = sc.nextLine();
+            switch (str){
+                case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                case "A3": truyen.setKhoGiay(KhoGiay.A3);
+                case "A4": truyen.setKhoGiay(KhoGiay.A4);
+                case "A5": truyen.setKhoGiay(KhoGiay.A5);
+                default: truyen.setKhoGiay(KhoGiay.NULL);
+            }
+            System.out.println("Nhập ngôn ngữ: ");
+            truyen.setNgonNgu(sc.nextLine());
             preStatement.setString(1, truyen.getTenMatHang());
             preStatement.setString(2, truyen.getTenTacGia());
             preStatement.setInt(3, truyen.getNamXuatBan());
             preStatement.setString(4, truyen.getTheLoai());
             preStatement.setDouble(5, truyen.getGiaThueTheoNgay());
-            preStatement.setInt(6, truyen.get);
-            preStatement.setDouble(7, truyen.getDungLuong());
-            preStatement.setString(8, truyen.getDoPhanGiai());
+            preStatement.setInt(6, truyen.getSoTrang());
+            String str1 = null;
+            switch (truyen.getKhoGiay()) {
+                case A0:
+                    str1 = "A0";
+                    break;
+                case A1:
+                    str1 = "A1";
+                    break;
+                case A2:
+                    str1 = "A2";
+                    break;
+                case A3:
+                    str1 = "A3";
+                    break;
+                case A4:
+                    str1 = "A4";
+                    break;
+                case A5:
+                    str1 = "A5";
+                    break;
+
+            }
+            preStatement.setString(7, str1);
+            preStatement.setString(8, truyen.getNgonNgu());
             int result = preStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -306,16 +381,6 @@ public class CuaHangThuePhim extends MySqlService {
 
 
     public boolean xoaNguoiThue(String a) {
-        //for (NguoiThue x : nguoiThueList) {
-//        for (int i = 0; i < nguoiThueList.size(); i++) {
-//            NguoiThue x = nguoiThueList.get(i);
-//            if (x.getMaNguoiThue().equals(a)) {
-//                nguoiThueList.remove(x);
-//                System.out.println("Xóa thành công");
-//            } else {
-//                System.out.println("Không tìm thấy người thuê muốn xóa");
-//            }
-//        }
         try {
             String sql = "delete from nguoithue where MaNguoiThue=?";
             PreparedStatement preStatement = conn.prepareStatement(sql);
@@ -332,16 +397,6 @@ public class CuaHangThuePhim extends MySqlService {
     }
 
     public boolean xoaMatHang(String a) {
-        //for (MatHang x : matHangList) {
-//        for (int i = 0; i < matHangList.size(); i++) {
-//            MatHang x = matHangList.get(i);
-//            if (x.getMaMatHang().equals(a)) {
-//                matHangList.remove(x);
-//                System.out.println("Xóa thành công");
-//            } else {
-//                System.out.println("Không tìm thấy mặt hàng này");
-//            }
-//        }
         try {
             String sql = "delete from truyentonkho  where MaMatHang=?";
             PreparedStatement preStatement = conn.prepareStatement(sql);

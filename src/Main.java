@@ -113,10 +113,12 @@ public class Main {
                                             truyen.setNgonNgu(sc.nextLine());
                                             cuaHangThuePhim.themTruyen(truyen);
                                             break;
-                                        case "3": bool1 = false;
+                                        case "3":
+                                            bool1 = false;
                                     }
                                     //break;
-                                }break;
+                                }
+                                break;
                             case "2":
                                 Boolean bool2 = true;
                                 while (bool2) {
@@ -129,7 +131,7 @@ public class Main {
                                     switch (j) {
                                         case "1":
                                             System.out.println("Mời nhập mã mặt hàng muốn xóa: ");
-                                           // sc.nextLine();
+                                            // sc.nextLine();
                                             cuaHangThuePhim.xoaMatHang(sc.nextLine());
                                             break;
                                         case "2":
@@ -137,11 +139,25 @@ public class Main {
                                             break;
                                     }
                                     //break;
-                                }break;
+                                }
+                                break;
                             case "3":
-                                System.out.println("Mời nhập mã mặt hàng muốn sửa:");
-                                //sc.nextLine();
-                                cuaHangThuePhim.suaMatHang(sc.nextLine());
+                                System.out.println("---------------------");
+                                System.out.println("1.Sửa phim");
+                                System.out.println("2.Sửa truyện");
+                                System.out.println("---------------------");
+                                System.out.println("Mời nhập từ(1-2)");
+                                String str4 = sc.nextLine();
+                                switch (str4) {
+                                    case "1":
+                                        System.out.println("Mời nhập mã mặt hàng muốn sửa:");
+                                        cuaHangThuePhim.chinhSuaPhim(sc.nextLine());
+                                        break;
+                                    case "2":
+                                        System.out.println("Mời nhập mã mặt hàng muốn sửa:");
+                                        cuaHangThuePhim.chinhSuaTruyen(sc.nextLine());
+                                        break;
+                                }
                                 break;
                             case "4":
                                 System.out.println("-----------------------------");
@@ -150,22 +166,26 @@ public class Main {
                                 System.out.println("3.Tìm kiếm theo thể loại");
                                 System.out.println("4.");
                                 System.out.println("-----------------------------");
+                                System.out.println("");
                                 break;
                             case "5":
                                 break;
                             case "6":
-                                for (MatHang x: cuaHangThuePhim.layDanhSachMatHang()
-                                     ) {
+                                for (MatHang x : cuaHangThuePhim.layDanhSachMatHang()
+                                ) {
                                     x.inTTin();
                                 }
                                 //cuaHangThuePhim.layDanhSachMatHang();
                                 break;
-                            case "7": bool = false;
-                            break;
-                            default:break;
+                            case "7":
+                                bool = false;
+                                break;
+                            default:
+                                break;
                         }
                         //break;
-                    }break;
+                    }
+                    break;
                 case "2":
                     Boolean bool2 = true;
                     while (bool2) {
