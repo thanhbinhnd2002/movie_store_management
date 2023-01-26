@@ -141,34 +141,96 @@ public class Main {
                                     //break;
                                 }
                                 break;
+
                             case "3":
-                                System.out.println("---------------------");
-                                System.out.println("1.Sửa phim");
-                                System.out.println("2.Sửa truyện");
-                                System.out.println("---------------------");
-                                System.out.println("Mời nhập từ(1-2)");
-                                String str4 = sc.nextLine();
-                                switch (str4) {
-                                    case "1":
-                                        System.out.println("Mời nhập mã mặt hàng muốn sửa:");
-                                        cuaHangThuePhim.chinhSuaPhim(sc.nextLine());
-                                        break;
-                                    case "2":
-                                        System.out.println("Mời nhập mã mặt hàng muốn sửa:");
-                                        cuaHangThuePhim.chinhSuaTruyen(sc.nextLine());
-                                        break;
+                                Boolean bool4 = true;
+                                while (bool4) {
+                                    System.out.println("---------------------");
+                                    System.out.println("1.Sửa phim");
+                                    System.out.println("2.Sửa truyện");
+                                    System.out.println("3.Quay lại");
+                                    System.out.println("---------------------");
+                                    System.out.println("Mời nhập từ(1-3)");
+                                    String str4 = sc.nextLine();
+                                    switch (str4) {
+                                        case "1":
+                                            System.out.println("Mời nhập mã mặt hàng muốn sửa:");
+                                            cuaHangThuePhim.chinhSuaPhim(sc.nextLine());
+                                            break;
+                                        case "2":
+                                            System.out.println("Mời nhập mã mặt hàng muốn sửa:");
+                                            cuaHangThuePhim.chinhSuaTruyen(sc.nextLine());
+                                            break;
+                                        case "3":
+                                            bool4 = false;
+                                            break;
+                                    }
                                 }
                                 break;
+
                             case "4":
-                                System.out.println("-----------------------------");
-                                System.out.println("1.Tìm kiếm theo tên phim");
-                                System.out.println("2.Tìm kiếm theo tên tác giả ");
-                                System.out.println("3.Tìm kiếm theo thể loại");
-                                System.out.println("4.");
-                                System.out.println("-----------------------------");
-                                System.out.println("");
-                                break;
+                                Boolean bool5 = true;
+                                while (bool5) {
+                                    System.out.println("-----------------------------");
+                                    System.out.println("1.Tìm kiếm theo tên phim");
+                                    System.out.println("2.Tìm kiếm theo tên tác giả ");
+                                    System.out.println("3.Tìm kiếm theo thể loại");
+                                    System.out.println("4.Tìm kiếm theo tên phim/truyện,tên tác giả,thể loại");
+                                    System.out.println("5.Quay lại ");
+                                    System.out.println("-----------------------------");
+                                    System.out.print("Nhập từ(1-5): ");
+                                    String str3 = sc.nextLine();
+                                    switch (str3) {
+                                        case "1":
+                                            System.out.println("Nhập tên phim muốn tìm kiếm: ");
+                                            for (MatHang x : cuaHangThuePhim.timMHTheoTenTruyenPhim(sc.nextLine())
+                                            ) {
+                                                x.inTTin();
+                                            }
+
+                                            break;
+                                        case "2":
+                                            System.out.println("Nhập tên tác giả muốn tìm kiếm: ");
+                                            for (MatHang x : cuaHangThuePhim.timMHTheoTenTacGia(sc.nextLine())
+                                            ) {
+                                                x.inTTin();
+                                            }
+                                            break;
+                                        case "3":
+                                            System.out.println("Nhập tên thể loại muốn tìm kiếm: ");
+                                            for (MatHang x : cuaHangThuePhim.timMHTheoTheLoai(sc.nextLine())
+                                            ) {
+                                                x.inTTin();
+                                            }
+                                            break;
+                                        case "4":
+                                            System.out.println("Nhập tên phim/truyện,tên tác giả,thể loại muốn tìm kiếm: ");
+                                            for (MatHang x : cuaHangThuePhim.timKiem(sc.nextLine(),sc.nextLine(),sc.nextLine())
+                                            ) {
+                                                x.inTTin();
+                                            }
+                                            break;
+                                        case "5":
+                                            bool5 = false;
+                                            break;
+                                        default:
+                                            System.out.println("Nhập lại");
+                                            break;
+                                    }
+                                    break;
+                                }
                             case "5":
+                                System.out.println("Mời nhập ngày bắt đầu: ");
+                                String str1 = sc.nextLine();
+                                Date date1 = spdf.parse(str1);
+                                System.out.println("Mời nhập ngày kết thúc:");
+                                String str2 = sc.nextLine();
+                                Date date2 = spdf.parse(str2);
+
+                                for (MatHang x : cuaHangThuePhim.timKiem(date1,date2)
+                                ) {
+                                    x.inTTin();
+                                }
                                 break;
                             case "6":
                                 for (MatHang x : cuaHangThuePhim.layDanhSachMatHang()
@@ -245,6 +307,19 @@ public class Main {
                     }
                 case "3":
                     System.out.println("Mời nhập thời điểm tính doanh thu: ");
+                    System.out.print("Mời nhập ngày bắt đầu: ");
+                    String str1 = sc.nextLine();
+                    Date date3 = spdf.parse(str1);
+                    java.sql.Date date1 = new java.sql.Date(date3.getTime());
+                    System.out.print("Mời nhập ngày kết thúc:");
+                    String str2 = sc.nextLine();
+                    Date date4 = spdf.parse(str2);
+                    java.sql.Date date2 = new java.sql.Date(date4.getTime());
+                    System.out.println("Doanh thu là: "+ cuaHangThuePhim.tinhDoanhThu(date1,date2));
+//                    for (MatHang x : cuaHangThuePhim.timKiem(date1,date2)
+//                    ) {
+//                        x.inTTin();
+//                    }
                     break;
                 case "4":
                     System.exit(0);

@@ -86,10 +86,54 @@ public class CuaHangThuePhim extends MySqlService {
         }
     }
 
-    public boolean themNguoiThue(NguoiThue a) {
-        nguoiThueList.add(a);
-        return true;
+//    public boolean themNguoiThue(NguoiThue a) {
+////        nguoiThueList.add(a);
+//
+//        return true;
+//    }
+public boolean themNguoiThue(NguoiThue nguoiThue) {
+    //Connection conn = null;
+    try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/film_management", "root","" );
+        String sql1 = "insert into nguoithue values (?,?,?)";
+        PreparedStatement preStatement = conn.prepareStatement(sql1);
+        preStatement.setString(1, nguoiThue.getMaNguoiThue());
+        preStatement.setString(2, nguoiThue.getTen());
+        preStatement.setString(3, nguoiThue.getSoDienThoai());
+        int result = preStatement.executeUpdate();
+//        if (result > 0) {
+//            return true;
+//        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/film_management", "root","" );
+        String sql2 = "insert into thuemathang values (?,?,?,?,?)";
+        PreparedStatement preStatement = conn.prepareStatement(sql2);
+        preStatement.setString(1, nguoiThue.getMaNguoiThue());
+        preStatement.setString(2, nguoiThue.getTen());
+        Date date1 = nguoiThue.getThoiGianMuon();
+        String str1 = spdf.format(date1);
+        preStatement.setString(3,str1);
+        //preStatement.setDate(3, (java.sql.Date) nguoiThue.getThoiGianMuon());
+        Date date2 = nguoiThue.getThoiGianTra();
+        String str2 = spdf.format(date2);
+        preStatement.setString(4,str2);
+        //preStatement.setDate(4, (java.sql.Date) nguoiThue.getThoiGianTra());
+        preStatement.setDouble(5, nguoiThue.getSoTienCuoc());
+        int result = preStatement.executeUpdate();
+//        if (result > 0) {
+//            return true;
+//        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+
+}
 
     public boolean themTruyen(Truyen a) {
 //        matHangList.add(a);
@@ -415,48 +459,380 @@ public class CuaHangThuePhim extends MySqlService {
 
     public List<MatHang> timMHTheoTenTruyenPhim(String tenTruyenPhim) {
         List<MatHang> lsMH = new ArrayList<>();
-        for (Object x : matHangList) {
-            MatHang matHang = (MatHang) x;
-            if (matHang.getTenMatHang().equals(tenTruyenPhim)) {
-                lsMH.add(matHang);
+        try{
+            String sql1 = "Select * from mathangtonkho where TenMatHang =? and MaMatHang LIKE 'T%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenTruyenPhim);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Truyen truyen = new Truyen();
+                truyen.setMaMatHang(result.getString(1));
+                truyen.setTenMatHang(result.getString(2));
+                truyen.setTenTacGia(result.getString(3));
+                truyen.setNamXuatBan(result.getInt(4));
+                truyen.setTheLoai(result.getString(5));
+                truyen.setGiaThueTheoNgay(result.getDouble(6));
+                truyen.setSoTrang(result.getInt(10));
+                switch (result.getString(11)){
+                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                    case "A3": truyen.setKhoGiay(KhoGiay.A3);
+                    case "A4": truyen.setKhoGiay(KhoGiay.A4);
+                    case "A5": truyen.setKhoGiay(KhoGiay.A5);
+                    default:truyen.setKhoGiay(KhoGiay.NULL);
+                }
+                truyen.setNgonNgu(result.getString(12));
+                lsMH.add(truyen);
             }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            String sql1 = "Select * from mathangtonkho where TenMatHang =? and MaMatHang LIKE 'P%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenTruyenPhim);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Phim phim = new Phim();
+                phim.setMaMatHang(result.getString(1));
+                phim.setTenMatHang(result.getString(2));
+                phim.setTenTacGia(result.getString(3));
+                phim.setNamXuatBan(result.getInt(4));
+                phim.setTheLoai(result.getString(5));
+                phim.setGiaThueTheoNgay(result.getDouble(6));
+                phim.setThoiGian(result.getInt(7));
+                phim.setDungLuong(result.getDouble(8));
+                phim.setDoPhanGiai(result.getString(9));
+                lsMH.add(phim);
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return lsMH;
     }
 
     public List<MatHang> timMHTheoTenTacGia(String tenTacGia) {
         List<MatHang> lsMH = new ArrayList<>();
-        for (Object x : matHangList) {
-            MatHang matHang = (MatHang) x;
-            if (matHang.getTenMatHang().equals(tenTacGia)) {
-                lsMH.add(matHang);
-
+        try{
+            String sql1 = "Select * from mathangtonkho where TenTacGia =? and MaMatHang LIKE 'T%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenTacGia);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Truyen truyen = new Truyen();
+                truyen.setMaMatHang(result.getString(1));
+                truyen.setTenMatHang(result.getString(2));
+                truyen.setTenTacGia(result.getString(3));
+                truyen.setNamXuatBan(result.getInt(4));
+                truyen.setTheLoai(result.getString(5));
+                truyen.setGiaThueTheoNgay(result.getDouble(6));
+                truyen.setSoTrang(result.getInt(10));
+                switch (result.getString(11)){
+                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                    case "A3": truyen.setKhoGiay(KhoGiay.A3);
+                    case "A4": truyen.setKhoGiay(KhoGiay.A4);
+                    case "A5": truyen.setKhoGiay(KhoGiay.A5);
+                    default:truyen.setKhoGiay(KhoGiay.NULL);
+                }
+                truyen.setNgonNgu(result.getString(12));
+                lsMH.add(truyen);
             }
-        }
 
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            String sql1 = "Select * from mathangtonkho where TenTacGia =? and MaMatHang LIKE 'P%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenTacGia);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Phim phim = new Phim();
+                phim.setMaMatHang(result.getString(1));
+                phim.setTenMatHang(result.getString(2));
+                phim.setTenTacGia(result.getString(3));
+                phim.setNamXuatBan(result.getInt(4));
+                phim.setTheLoai(result.getString(5));
+                phim.setGiaThueTheoNgay(result.getDouble(6));
+                phim.setThoiGian(result.getInt(7));
+                phim.setDungLuong(result.getDouble(8));
+                phim.setDoPhanGiai(result.getString(9));
+                lsMH.add(phim);
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return lsMH;
     }
 
     public List<MatHang> timMHTheoTheLoai(String tenTheLoai) {
         List<MatHang> lsMH = new ArrayList<>();
-        for (Object x : matHangList) {
-            MatHang matHang = (MatHang) x;
-            if (matHang.getTenMatHang().equals(tenTheLoai)) {
-                lsMH.add(matHang);
+        try{
+            String sql1 = "Select * from mathangtonkho where TheLoai =? and MaMatHang LIKE 'T%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenTheLoai);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Truyen truyen = new Truyen();
+                truyen.setMaMatHang(result.getString(1));
+                truyen.setTenMatHang(result.getString(2));
+                truyen.setTenTacGia(result.getString(3));
+                truyen.setNamXuatBan(result.getInt(4));
+                truyen.setTheLoai(result.getString(5));
+                truyen.setGiaThueTheoNgay(result.getDouble(6));
+                truyen.setSoTrang(result.getInt(10));
+                switch (result.getString(11)){
+                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                    case "A3": truyen.setKhoGiay(KhoGiay.A3);
+                    case "A4": truyen.setKhoGiay(KhoGiay.A4);
+                    case "A5": truyen.setKhoGiay(KhoGiay.A5);
+                    default:truyen.setKhoGiay(KhoGiay.NULL);
+                }
+                truyen.setNgonNgu(result.getString(12));
+                lsMH.add(truyen);
             }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            String sql1 = "Select * from mathangtonkho where TheLoai =? and MaMatHang LIKE 'P%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenTheLoai);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Phim phim = new Phim();
+                phim.setMaMatHang(result.getString(1));
+                phim.setTenMatHang(result.getString(2));
+                phim.setTenTacGia(result.getString(3));
+                phim.setNamXuatBan(result.getInt(4));
+                phim.setTheLoai(result.getString(5));
+                phim.setGiaThueTheoNgay(result.getDouble(6));
+                phim.setThoiGian(result.getInt(7));
+                phim.setDungLuong(result.getDouble(8));
+                phim.setDoPhanGiai(result.getString(9));
+                lsMH.add(phim);
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return lsMH;
     }
 
-    public List<MatHang> timKiem(String tenTheLoai) {
+    public List<MatHang> timKiem(String tenMatHang,String tenTacGia,String tenTheLoai) {
         List<MatHang> lsMH = new ArrayList<>();
-        for (Object x : matHangList) {
-            MatHang matHang = (MatHang) x;
-            if (matHang.getTenMatHang().equals(tenTheLoai)) {
-                lsMH.add(matHang);
+        try{
+            String sql1 = "Select * from mathangtonkho where TenMatHang=? and TenTacGia=? and TheLoai =? and MaMatHang LIKE 'T%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenMatHang);
+            preparedStatement1.setString(2,tenTacGia);
+            preparedStatement1.setString(3,tenTheLoai);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Truyen truyen = new Truyen();
+                truyen.setMaMatHang(result.getString(1));
+                truyen.setTenMatHang(result.getString(2));
+                truyen.setTenTacGia(result.getString(3));
+                truyen.setNamXuatBan(result.getInt(4));
+                truyen.setTheLoai(result.getString(5));
+                truyen.setGiaThueTheoNgay(result.getDouble(6));
+                truyen.setSoTrang(result.getInt(10));
+                switch (result.getString(11)){
+                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                    case "A3": truyen.setKhoGiay(KhoGiay.A3);
+                    case "A4": truyen.setKhoGiay(KhoGiay.A4);
+                    case "A5": truyen.setKhoGiay(KhoGiay.A5);
+                    default:truyen.setKhoGiay(KhoGiay.NULL);
+                }
+                truyen.setNgonNgu(result.getString(12));
+                lsMH.add(truyen);
             }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            String sql1 = "Select * from mathangtonkho where TenMatHang=? and TenTacGia=? and TheLoai =? and MaMatHang LIKE 'P%'";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+            preparedStatement1.setString(1,tenMatHang);
+            preparedStatement1.setString(2,tenTacGia);
+            preparedStatement1.setString(3,tenTheLoai);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Phim phim = new Phim();
+                phim.setMaMatHang(result.getString(1));
+                phim.setTenMatHang(result.getString(2));
+                phim.setTenTacGia(result.getString(3));
+                phim.setNamXuatBan(result.getInt(4));
+                phim.setTheLoai(result.getString(5));
+                phim.setGiaThueTheoNgay(result.getDouble(6));
+                phim.setThoiGian(result.getInt(7));
+                phim.setDungLuong(result.getDouble(8));
+                phim.setDoPhanGiai(result.getString(9));
+                lsMH.add(phim);
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return lsMH;
     }
+    public List<MatHang> timKiem(Date start,Date end){
+        List<MatHang> lsMH = new ArrayList<>();
+        try {
+        String sql1 = "SELECT * FROM `mathangtonkho` NATURAL JOIN `thuemathang` WHERE MaMatHang LIKE 'P%' and ThoiGianTra<? and ThoiGianTra >?";
+        PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+        String str1 = spdf.format(end);
+        preparedStatement1.setString(1,str1);
+        String str2 = spdf.format(start);
+        preparedStatement1.setString(2,str2);
+        ResultSet result = preparedStatement1.executeQuery();
+        while (result.next()){
+            Phim phim = new Phim();
+            phim.setMaMatHang(result.getString(1));
+            phim.setTenMatHang(result.getString(2));
+            phim.setTenTacGia(result.getString(3));
+            phim.setNamXuatBan(result.getInt(4));
+            phim.setTheLoai(result.getString(5));
+            phim.setGiaThueTheoNgay(result.getDouble(6));
+            phim.setThoiGian(result.getInt(7));
+            phim.setDungLuong(result.getDouble(8));
+            phim.setDoPhanGiai(result.getString(9));
+            lsMH.add(phim);
+        }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            String sql2 = "SELECT * FROM `mathangtonkho` NATURAL JOIN `thuemathang` WHERE MaMatHang LIKE 'T%' and ThoiGianTra<? and ThoiGianTra >?";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql2);
+            String str1 = spdf.format(end);
+            preparedStatement1.setString(1,str1);
+            String str2 = spdf.format(start);
+            preparedStatement1.setString(2,str2);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                Truyen truyen = new Truyen();
+                truyen.setMaMatHang(result.getString(1));
+                truyen.setTenMatHang(result.getString(2));
+                truyen.setTenTacGia(result.getString(3));
+                truyen.setNamXuatBan(result.getInt(4));
+                truyen.setTheLoai(result.getString(5));
+                truyen.setGiaThueTheoNgay(result.getDouble(6));
+                truyen.setSoTrang(result.getInt(10));
+                switch (result.getString(11)){
+                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                    case "A3": truyen.setKhoGiay(KhoGiay.A3);
+                    case "A4": truyen.setKhoGiay(KhoGiay.A4);
+                    case "A5": truyen.setKhoGiay(KhoGiay.A5);
+                    default:truyen.setKhoGiay(KhoGiay.NULL);
+                }
+                truyen.setNgonNgu(result.getString(12));
+                lsMH.add(truyen);
+            }
 
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  lsMH;
+
+    }
+    public double tinhDoanhThu(java.sql.Date start, java.sql.Date end){
+        double doanhthu =0.0;
+        try {
+            String sql =" Select *from `thuemathang` natural join `mathangtonkho`where ThoiGianTra<? and ThoiGianTra>?  ";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql);
+            //String str1 = spdf.format(end);
+            preparedStatement1.setDate(1,end);
+            //String str2 = spdf.format(start);
+            preparedStatement1.setDate(2,start);
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                NguoiThue nguoiThue = new NguoiThue();
+                //MatHang matHang = new MatHang();
+                Date date1 = spdf.parse(result.getString(3));
+                nguoiThue.setThoiGianMuon(date1);
+                Date date2 = spdf.parse(result.getString(4));
+                nguoiThue.setThoiGianTra(date2);
+
+                try {
+                    // calculating the difference b/w startDate and endDate
+                    long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
+                    // using TimeUnit class from java.util.concurrent package
+                    long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+                    //time = (int) getDaysDiff;
+                    doanhthu += getDaysDiff*result.getDouble(10);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            String sql =" Select *from `thuemathang` natural join `mathangtonkho`where ThoiGianTra>? and ThoiGianMuon<? ";
+            PreparedStatement preparedStatement1 = conn.prepareStatement(sql);
+            //String str1 = spdf.format(end);
+            preparedStatement1.setDate(1,end);
+            preparedStatement1.setDate(2,end);
+
+            ResultSet result = preparedStatement1.executeQuery();
+            while (result.next()){
+                NguoiThue nguoiThue = new NguoiThue();
+                //MatHang matHang = new MatHang();
+                Date date1 = spdf.parse(result.getString(3));
+                nguoiThue.setThoiGianMuon(date1);
+                Date date2 = spdf.parse(result.getString(4));
+                nguoiThue.setThoiGianTra(date2);
+
+                try {
+                    // calculating the difference b/w startDate and endDate
+                    long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
+                    // using TimeUnit class from java.util.concurrent package
+                    long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+                    //time = (int) getDaysDiff;
+                    doanhthu += getDaysDiff*result.getDouble(5);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return doanhthu;
+    }
 }
