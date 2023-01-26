@@ -1,14 +1,18 @@
+import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class CuaHangThuePhim {
+public class CuaHangThuePhim extends MySqlService {
     private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
     private List<MatHang> matHangList = new ArrayList<MatHang>();
     private List<MatHang> matHangThueList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
+    public CuaHangThuePhim(){
+        super();
+    }
 
     public int tinhKhoangThoiGian(Date start, Date end) {
         int time = 0;
@@ -55,7 +59,7 @@ public class CuaHangThuePhim {
                     System.out.println("Nhâp mã mặt hàng muốn mượn: ");
                     String str = sc.nextLine();
                     //for (MatHang x : matHangList) {
-                    for (int i =0;i<matHangList.size();i++) {
+                    for (int i = 0; i < matHangList.size(); i++) {
                         MatHang x = matHangList.get(i);
                         if (str.equals(x.getMaMatHang())) {
                             matHangThueList.add(x);
@@ -85,11 +89,67 @@ public class CuaHangThuePhim {
         return true;
     }
 
-    public boolean themMatHang(MatHang a) {
-        //MatHang b = (MatHang) a;
-        matHangList.add(a);
-        return true;
+    public boolean themTruyen(Truyen a) {
+//        matHangList.add(a);
+//        return true;
+        try {
+            String sql = "insert into truyentonkho values (?,?,?,?,?,?,?,?,?)";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, a.getMaMatHang());
+            preStatement.setString(2, a.getTenMatHang());
+            preStatement.setString(3, a.getTenTacGia());
+            preStatement.setInt(4, a.getNamXuatBan());
+            preStatement.setString(5, a.getTheLoai());
+            preStatement.setDouble(6, a.getGiaThueTheoNgay());
+            preStatement.setInt(7, a.getSoTrang());
+            String str =null;
+            switch (a.getKhoGiay()){
+                case A0 : str ="A0";
+                case A1:  str = "A1";
+                case A2:str="A2";
+                default: break;
+
+            }
+            preStatement.setString(8, str);
+            preStatement.setString(9, a.getNgonNgu());
+            int result = preStatement.executeUpdate();
+            if (result > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
+
+    public boolean themPhim(Phim a) {
+        //MatHang b = (MatHang) a;
+        //matHangList.add(a);
+
+        //return true;
+        try {
+            String sql = "insert into phimtonkho values (?,?,?,?,?,?,?,?,?)";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, a.getMaMatHang());
+            preStatement.setString(2, a.getTenMatHang());
+            preStatement.setString(3, a.getTenTacGia());
+            preStatement.setInt(4, a.getNamXuatBan());
+            preStatement.setString(5, a.getTheLoai());
+            preStatement.setDouble(6, a.getGiaThueTheoNgay());
+            preStatement.setInt(7, a.getThoiGian());
+            preStatement.setDouble(8, a.getDungLuong());
+            preStatement.setString(9, a.getDoPhanGiai());
+            int result = preStatement.executeUpdate();
+            if (result > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     public void suaNguoiThue(String maNguoiThue) throws ParseException {
         for (NguoiThue x : nguoiThueList) {
@@ -118,7 +178,7 @@ public class CuaHangThuePhim {
 
     }
 
-    public boolean suaMatHang(String maMatHang) {
+        public boolean suaMatHang(String maMatHang) {
         for (MatHang x : matHangList) {
             if (x.getMaMatHang().equals(maMatHang)) {
                 //x.setMaMatHang(sc.nextLine());
@@ -133,6 +193,7 @@ public class CuaHangThuePhim {
                 x.setGiaThueTheoNgay(sc.nextDouble());
                 System.out.print("nhập năm xuất bản: ");
                 x.setNamXuatBan(sc.nextInt());
+
                 return true;
             } else {
                 System.out.println("Không tìm thấy mặt hàng này!");
@@ -140,34 +201,101 @@ public class CuaHangThuePhim {
         }
         return false;
     }
-
-    public void xoaNguoiThue(String a) {
-        //for (NguoiThue x : nguoiThueList) {
-        for (int i = 0;i<nguoiThueList.size();i++){
-            NguoiThue x = nguoiThueList.get(i);
-            if (x.getMaNguoiThue().equals(a)) {
-                nguoiThueList.remove(x);
-                System.out.println("Xóa thành công");
+    public boolean chinhSuaPhim(Phim phim) {
+        try {
+            String sql = "update phimtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, phim.getTenMatHang());
+            preStatement.setString(2, phim.getTenTacGia());
+            preStatement.setInt(3, phim.getNamXuatBan());
+            preStatement.setString(4, phim.getTheLoai());
+            preStatement.setDouble(5, phim.getGiaThueTheoNgay());
+            preStatement.setInt(6, phim.getThoiGian());
+            preStatement.setDouble(7, phim.getDungLuong());
+            preStatement.setString(8, phim.getDoPhanGiai());
+            int result = preStatement.executeUpdate();
+            if (result > 0) {
+                return true;
             }
-            else {
-                System.out.println("Không tìm thấy người thuê muốn xóa");
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return false;
+    }
+//    public boolean chinhSuaTruyen(Truyen truyen) {
+//        try {
+//            String sql = "update phimtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
+//            PreparedStatement preStatement = conn.prepareStatement(sql);
+//            preStatement.setString(1, phim.getTenMatHang());
+//            preStatement.setString(2, phim.getTenTacGia());
+//            preStatement.setInt(3, phim.getNamXuatBan());
+//            preStatement.setString(4, phim.getTheLoai());
+//            preStatement.setDouble(5, phim.getGiaThueTheoNgay());
+//            preStatement.setInt(6, phim.getThoiGian());
+//            preStatement.setDouble(7, phim.getDungLuong());
+//            preStatement.setString(8, phim.getDoPhanGiai());
+//            int result = preStatement.executeUpdate();
+//            if (result > 0) {
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+
+
+    public boolean xoaNguoiThue(String a) {
+        //for (NguoiThue x : nguoiThueList) {
+//        for (int i = 0; i < nguoiThueList.size(); i++) {
+//            NguoiThue x = nguoiThueList.get(i);
+//            if (x.getMaNguoiThue().equals(a)) {
+//                nguoiThueList.remove(x);
+//                System.out.println("Xóa thành công");
+//            } else {
+//                System.out.println("Không tìm thấy người thuê muốn xóa");
+//            }
+//        }
+        try {
+            String sql = "delete from nguoithue where MaNguoiThue=?";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, a);
+            int result = preStatement.executeUpdate();
+            if (result > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
 
     }
 
-    public void xoaMatHang(String a) {
+    public boolean xoaMatHang(String a) {
         //for (MatHang x : matHangList) {
-        for (int i = 0;i<matHangList.size();i++){
-            MatHang x = matHangList.get(i);
-            if (x.getMaMatHang().equals(a)) {
-                matHangList.remove(x);
+//        for (int i = 0; i < matHangList.size(); i++) {
+//            MatHang x = matHangList.get(i);
+//            if (x.getMaMatHang().equals(a)) {
+//                matHangList.remove(x);
+//                System.out.println("Xóa thành công");
+//            } else {
+//                System.out.println("Không tìm thấy mặt hàng này");
+//            }
+//        }
+        try {
+            String sql = "delete from truyentonkho  where MaMatHang=?";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, a);
+            int result = preStatement.executeUpdate();
+            if (result > 0) {
                 System.out.println("Xóa thành công");
+                return true;
             }
-            else{
-                System.out.println("Không tìm thấy mặt hàng này");
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        System.out.println("Xóa thất bại");
+        return false;
     }
 
     public List<MatHang> timMHTheoTenTruyenPhim(String tenTruyenPhim) {
@@ -187,8 +315,10 @@ public class CuaHangThuePhim {
             MatHang matHang = (MatHang) x;
             if (matHang.getTenMatHang().equals(tenTacGia)) {
                 lsMH.add(matHang);
+
             }
         }
+
         return lsMH;
     }
 
@@ -213,4 +343,5 @@ public class CuaHangThuePhim {
         }
         return lsMH;
     }
+
 }

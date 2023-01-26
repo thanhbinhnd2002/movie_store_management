@@ -6,13 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws ParseException {
         SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
-        //MatHang truyen = new Truyen("doraemon", "fuji", 2002, "truyen tranh", 2000, 100, KhoGiay.A2, "tieng Viet");
-//        truyen.inTTin();
-        //NguoiThue nguoiThue = new NguoiThue("Binh", "0979633868", truyen, spdf.parse("2023-01-22"), spdf.parse("2023-01-24"), 200.0);
-        //System.out.println(nguoiThue.tinhTienChoThue());
         CuaHangThuePhim cuaHangThuePhim = new CuaHangThuePhim();
-        //cuaHangThuePhim.themNguoiThue(nguoiThue);
-//        System.out.println(cuaHangThuePhim.get(0));
         while (true) {
             System.out.println("----------------------------");
             System.out.println("cửa hàng cho thuê phim truyện");
@@ -75,12 +69,12 @@ public class Main {
                                             sc.nextLine();
                                             System.out.print("Độ phân giải: ");
                                             phim.setDoPhanGiai(sc.nextLine());
-                                            cuaHangThuePhim.themMatHang(phim);
+                                            cuaHangThuePhim.themPhim(phim);
                                             break;
                                         case "2":
                                             Truyen truyen = new Truyen();
                                             System.out.println("Mời nhập thông tin: ");
-                                            sc.nextLine();
+                                            //sc.nextLine();
                                             System.out.println("Mời nhập mã mặt hàng: ");
                                             truyen.setMaMatHang(sc.nextLine());
                                             System.out.println("Mời nhập tên mặt hàng: ");
@@ -89,6 +83,7 @@ public class Main {
                                             truyen.setTenTacGia(sc.nextLine());
                                             System.out.println("Mời nhập giá thuê theo ngày: ");
                                             truyen.setGiaThueTheoNgay(sc.nextDouble());
+                                            sc.nextLine();
                                             System.out.println("Mời nhập năm xuất bản: ");
                                             truyen.setNamXuatBan(sc.nextInt());
                                             sc.nextLine();
@@ -115,7 +110,7 @@ public class Main {
                                             }
                                             System.out.println("Mời nhập ngôn ngữ: ");
                                             truyen.setNgonNgu(sc.nextLine());
-                                            cuaHangThuePhim.themMatHang(truyen);
+                                            cuaHangThuePhim.themTruyen(truyen);
                                             break;
                                         case "3": bool1 = false;
                                     }
@@ -200,12 +195,16 @@ public class Main {
                                 cuaHangThuePhim.thueTruyenPhim();
                                 break;
                             case "2":
+                                System.out.println("Nhập mã số người thuê: ");
+                                cuaHangThuePhim.xoaNguoiThue(sc.nextLine());
                                 break;
                             case "3":
                                 System.out.println("Nhập mã số người thuê muốn sửa:");
+                                cuaHangThuePhim.suaNguoiThue(sc.nextLine());
                                 break;
                             case "4":
                                 System.out.println("Danh sách người thuê:");
+
                                 //cuaHangThuePhim.hienThiNguoiThue()
                                 break;
                             case "5":
