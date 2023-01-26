@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf694d08-9a87-4cf8-a721-3245e4447f4f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MySqlService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CuaHangThuePhim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CuaHangThuePhim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KhoGiay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KhoGiay.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Phim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Phim.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +43,11 @@
     &quot;last_opened_file_path&quot;: &quot;D:/code/java/baitapoop/baitaplonooptuan7/code/src/bai4&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\code\java\baitapoop\baitaplonoop\movie_store_management\src" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />

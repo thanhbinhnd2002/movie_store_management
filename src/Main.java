@@ -27,10 +27,11 @@ public class Main {
                         System.out.println("2.Xóa phim truyện");
                         System.out.println("3.Sửa phim truyện");
                         System.out.println("4.Tìm kiếm phim truyện ");
-                        System.out.println("5.Tìm kiếm người đang thuê phim truyện");
-                        System.out.println("6.Quay lại");
+                        System.out.println("5.Tìm kiếm phim truyện đang được thuê");
+                        System.out.println("6.Hiện thị phim truyện");
+                        System.out.println("7.Quay lại");
                         System.out.println("----------------------");
-                        System.out.print("Mời nhập(1-6): ");
+                        System.out.print("Mời nhập(1-7): ");
                         String m = sc.nextLine();
                         switch (m) {
                             case "1":
@@ -152,7 +153,14 @@ public class Main {
                                 break;
                             case "5":
                                 break;
-                            case "6": bool = false;
+                            case "6":
+                                for (MatHang x: cuaHangThuePhim.layDanhSachMatHang()
+                                     ) {
+                                    x.inTTin();
+                                }
+                                //cuaHangThuePhim.layDanhSachMatHang();
+                                break;
+                            case "7": bool = false;
                             break;
                             default:break;
                         }

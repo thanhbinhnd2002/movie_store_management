@@ -1,4 +1,5 @@
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -93,7 +94,7 @@ public class CuaHangThuePhim extends MySqlService {
 //        matHangList.add(a);
 //        return true;
         try {
-            String sql = "insert into truyentonkho values (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into mathangtonkho values (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preStatement = conn.prepareStatement(sql);
             preStatement.setString(1, a.getMaMatHang());
             preStatement.setString(2, a.getTenMatHang());
@@ -101,7 +102,10 @@ public class CuaHangThuePhim extends MySqlService {
             preStatement.setInt(4, a.getNamXuatBan());
             preStatement.setString(5, a.getTheLoai());
             preStatement.setDouble(6, a.getGiaThueTheoNgay());
-            preStatement.setInt(7, a.getSoTrang());
+            preStatement.setInt(7,0);
+            preStatement.setInt(8,0);
+            preStatement.setString(9,"null");
+            preStatement.setInt(10, a.getSoTrang());
             String str =null;
             switch (a.getKhoGiay()){
                 case A0 : str ="A0";
@@ -110,8 +114,8 @@ public class CuaHangThuePhim extends MySqlService {
                 default: break;
 
             }
-            preStatement.setString(8, str);
-            preStatement.setString(9, a.getNgonNgu());
+            preStatement.setString(11, str);
+            preStatement.setString(12, a.getNgonNgu());
             int result = preStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -129,7 +133,7 @@ public class CuaHangThuePhim extends MySqlService {
 
         //return true;
         try {
-            String sql = "insert into phimtonkho values (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into mathangtonkho values (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preStatement = conn.prepareStatement(sql);
             preStatement.setString(1, a.getMaMatHang());
             preStatement.setString(2, a.getTenMatHang());
@@ -140,6 +144,9 @@ public class CuaHangThuePhim extends MySqlService {
             preStatement.setInt(7, a.getThoiGian());
             preStatement.setDouble(8, a.getDungLuong());
             preStatement.setString(9, a.getDoPhanGiai());
+            preStatement.setInt(10,0);
+            preStatement.setString(11,"null");
+            preStatement.setString(12,"null");
             int result = preStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -201,6 +208,59 @@ public class CuaHangThuePhim extends MySqlService {
         }
         return false;
     }
+    public List<MatHang> layDanhSachMatHang(){
+        List<MatHang> dsMH = new ArrayList<>();
+        try {
+            String sql1 = "SELECT `MaMatHang`, `TenMatHang`, `TenTacGia`, `NamXuatBan`, `TheLoai`, `GiaThueTheoNgay`, `ThoiGian`, `DungLuong`, `DoPhanGiai` from `mathangtonkho` where MaMatHang LIKE 'P%'";
+            PreparedStatement preStatement = conn.prepareStatement(sql1);
+            ResultSet result = preStatement.executeQuery();
+            while (result.next()) {
+                Phim matHang = new Phim();
+                matHang.setMaMatHang(result.getString(1));
+                matHang.setTenMatHang(result.getString(2));
+                matHang.setTenTacGia(result.getString(3));
+                matHang.setNamXuatBan(result.getInt(4));
+                matHang.setTheLoai(result.getString(5));
+                matHang.setGiaThueTheoNgay(result.getDouble(6));
+                matHang.setThoiGian(result.getInt(7));
+                matHang.setDungLuong(result.getDouble(8));
+                matHang.setDoPhanGiai(result.getString(9));
+                dsMH.add(matHang);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            String sql2 = "SELECT `MaMatHang`, `TenMatHang`, `TenTacGia`, `NamXuatBan`, `TheLoai`, `GiaThueTheoNgay`, `SoTrang`, `KhoGiay`, `NgonNgu` from `mathangtonkho` where MaMatHang LIKE 'T%'";
+            PreparedStatement preStatement = conn.prepareStatement(sql2);
+            ResultSet result = preStatement.executeQuery();
+            while (result.next()) {
+                Truyen truyen = new Truyen();
+                truyen.setMaMatHang(result.getString(1));
+                truyen.setTenMatHang(result.getString(2));
+                truyen.setTenTacGia(result.getString(3));
+                truyen.setNamXuatBan(result.getInt(4));
+                truyen.setTheLoai(result.getString(5));
+                truyen.setGiaThueTheoNgay(result.getDouble(6));
+                truyen.setSoTrang(result.getInt(7));
+                String str = result.getString(8);
+                switch (str){
+                    case "A0": truyen.setKhoGiay(KhoGiay.A0);
+                    case "A1": truyen.setKhoGiay(KhoGiay.A1);
+                    case "A2": truyen.setKhoGiay(KhoGiay.A2);
+                    default: truyen.setKhoGiay(null);
+                }
+                truyen.setNgonNgu(result.getString(9));
+                dsMH.add(truyen);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        for (MatHang x: dsMH){
+//            x.inTTin();
+//        }
+        return dsMH;
+    }
     public boolean chinhSuaPhim(Phim phim) {
         try {
             String sql = "update phimtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
@@ -222,27 +282,27 @@ public class CuaHangThuePhim extends MySqlService {
         }
         return false;
     }
-//    public boolean chinhSuaTruyen(Truyen truyen) {
-//        try {
-//            String sql = "update phimtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
-//            PreparedStatement preStatement = conn.prepareStatement(sql);
-//            preStatement.setString(1, phim.getTenMatHang());
-//            preStatement.setString(2, phim.getTenTacGia());
-//            preStatement.setInt(3, phim.getNamXuatBan());
-//            preStatement.setString(4, phim.getTheLoai());
-//            preStatement.setDouble(5, phim.getGiaThueTheoNgay());
-//            preStatement.setInt(6, phim.getThoiGian());
-//            preStatement.setDouble(7, phim.getDungLuong());
-//            preStatement.setString(8, phim.getDoPhanGiai());
-//            int result = preStatement.executeUpdate();
-//            if (result > 0) {
-//                return true;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
+    public boolean chinhSuaTruyen(Truyen truyen) {
+        try {
+            String sql = "update mathangtonkho set TenMatHang=?, TenTacGia=?, NamXuatBan=?, TheLoai=?,GiaThueTheoNgay=?, ThoiGian=?, DungLuong=?, DoPhanGiai=? where MaMatHang=?";
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, truyen.getTenMatHang());
+            preStatement.setString(2, truyen.getTenTacGia());
+            preStatement.setInt(3, truyen.getNamXuatBan());
+            preStatement.setString(4, truyen.getTheLoai());
+            preStatement.setDouble(5, truyen.getGiaThueTheoNgay());
+            preStatement.setInt(6, truyen.get);
+            preStatement.setDouble(7, truyen.getDungLuong());
+            preStatement.setString(8, truyen.getDoPhanGiai());
+            int result = preStatement.executeUpdate();
+            if (result > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
     public boolean xoaNguoiThue(String a) {
