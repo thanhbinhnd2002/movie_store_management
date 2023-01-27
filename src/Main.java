@@ -105,6 +105,9 @@ public class Main {
                                                 case "A2":
                                                     truyen.setKhoGiay(KhoGiay.A2);
                                                     break;
+                                                case "A3": truyen.setKhoGiay(KhoGiay.A3);break;
+                                                case "A4": truyen.setKhoGiay(KhoGiay.A4);break;
+                                                case "A5": truyen.setKhoGiay(KhoGiay.A5);break;
                                                 default:
                                                     System.out.println("Nhập sai");
                                                     break;
@@ -217,8 +220,8 @@ public class Main {
                                             System.out.println("Nhập lại");
                                             break;
                                     }
-                                    break;
-                                }
+
+                                }break;
                             case "5":
                                 System.out.println("Mời nhập ngày bắt đầu: ");
                                 String str1 = sc.nextLine();
@@ -237,7 +240,6 @@ public class Main {
                                 ) {
                                     x.inTTin();
                                 }
-                                //cuaHangThuePhim.layDanhSachMatHang();
                                 break;
                             case "7":
                                 bool = false;
@@ -255,16 +257,14 @@ public class Main {
                         System.out.println("1.Thêm người thuê");
                         System.out.println("2.Xóa người thuê");
                         System.out.println("3.Sửa người thuê");
-                        System.out.println("4.Hiển thị danh sách người thuê");
-                        System.out.println("5.Quay lại");
+                        System.out.println("4.Quay lại");
                         System.out.println("------------------");
-                        System.out.print("Chọn (1-5): ");
+                        System.out.print("Chọn (1-4): ");
                         String b = sc.nextLine();
                         switch (b) {
                             case "1":
                                 NguoiThue nguoiThue = new NguoiThue();
                                 System.out.println("Mời nhập thông tin: ");
-                                sc.nextLine();
                                 System.out.print("Nhập mã người thuê: ");
                                 nguoiThue.setMaNguoiThue(sc.nextLine());
                                 System.out.print("Nhập tên người thuê: ");
@@ -278,11 +278,11 @@ public class Main {
                                 System.out.print("Nhập thời gian trả: ");
                                 String str2 = sc.nextLine();
                                 Date date2 = spdf.parse(str2);
-                                nguoiThue.setThoiGianMuon(date2);
+                                nguoiThue.setThoiGianTra(date2);
                                 System.out.print("Nhập số tiền cược: ");
                                 nguoiThue.setSoTienCuoc(sc.nextDouble());
                                 cuaHangThuePhim.themNguoiThue(nguoiThue);
-                                cuaHangThuePhim.thueTruyenPhim();
+                                cuaHangThuePhim.thueTruyenPhim(nguoiThue);
                                 break;
                             case "2":
                                 System.out.println("Nhập mã số người thuê: ");
@@ -293,18 +293,13 @@ public class Main {
                                 cuaHangThuePhim.suaNguoiThue(sc.nextLine());
                                 break;
                             case "4":
-                                System.out.println("Danh sách người thuê:");
-
-                                //cuaHangThuePhim.hienThiNguoiThue()
-                                break;
-                            case "5":
                                 bool2 = false;
                                 break;
                             default:
                                 break;
                         }
-                        break;
-                    }
+
+                    }break;
                 case "3":
                     System.out.println("Mời nhập thời điểm tính doanh thu: ");
                     System.out.print("Mời nhập ngày bắt đầu: ");
