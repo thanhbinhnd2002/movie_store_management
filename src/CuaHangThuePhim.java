@@ -15,6 +15,7 @@ public class CuaHangThuePhim extends MySqlService {
     public CuaHangThuePhim() {
         super();
     }
+
     public void thueTruyenPhim(NguoiThue nguoiThue) throws ParseException {
         boolean bool = true;
         while (bool) {
@@ -31,8 +32,8 @@ public class CuaHangThuePhim extends MySqlService {
                     System.out.println("Mời nhập mã mặt hàng: ");
                     String str = sc.nextLine();
                     try {
-                        String sql2 = "insert into thuemathang values (?,?,?,?,?,?)";
-                        PreparedStatement preStatement = conn.prepareStatement(sql2);
+                        String sql = "insert into thuemathang (MaNguoiThue,MaMatHang,ThoiGianMuon,ThoiGianTra,TienCuoc,TinhTien) values (?,?,?,?,?,?)";
+                        PreparedStatement preStatement = conn.prepareStatement(sql);
                         preStatement.setString(1, nguoiThue.getMaNguoiThue());
                         preStatement.setString(2, str);
                         java.sql.Date date3 = new java.sql.Date(nguoiThue.getThoiGianMuon().getTime());
@@ -41,28 +42,33 @@ public class CuaHangThuePhim extends MySqlService {
                         preStatement.setDate(4, date4);
                         preStatement.setDouble(5, nguoiThue.getSoTienCuoc());
                         double tinhtien = 0.0;
-
-                        try {
-                            String sql = " Select *from `thuemathang` natural join `mathang`where MaNguoiThue=? and MaMatHang=?  ";
-                            PreparedStatement preparedStatement1 = conn.prepareStatement(sql);
-                            preparedStatement1.setString(1, nguoiThue.getMaNguoiThue());
-                            preparedStatement1.setString(2, str);
-                            ResultSet result = preparedStatement1.executeQuery();
-                            if (result.next()){
-                                // calculating the difference b/w startDate and endDate
-                                long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
-                                // using TimeUnit class from java.util.concurrent package
-                                long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
-
-                                tinhtien = getDaysDiff * result.getDouble(11);
-                            }
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
                         preStatement.setDouble(6, tinhtien);
                         int result = preStatement.executeUpdate();
+
+                        String sql1 = " Select *from  `mathang`where MaMatHang=?  ";
+                        PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
+                        //preparedStatement1.setString(1, nguoiThue.getMaNguoiThue());
+                        preparedStatement1.setString(1, str);
+                        ResultSet result1 = preparedStatement1.executeQuery();
+                        if (result1.next()) {
+
+                            // calculating the difference b/w startDate and endDate
+                            long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
+                            // using TimeUnit class from java.util.concurrent package
+                            long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+                            tinhtien = getDaysDiff * result1.getDouble(6);
+
+
+
+                        }
+
+                        String sql3 = "update `thuemathang`  set TinhTien=? where MaNguoiThue=? and MaMatHang=?";
+                        PreparedStatement preStatement3 = conn.prepareStatement(sql3);
+                        preStatement3.setDouble(1, tinhtien);
+                        preStatement3.setString(2,nguoiThue.getMaNguoiThue());
+                        preStatement3.setString(3,str);
+                        int result3 = preStatement3.executeUpdate();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -854,7 +860,7 @@ public class CuaHangThuePhim extends MySqlService {
             //String str1 = spdf.format(end);
             preparedStatement1.setDate(1, end);
             preparedStatement1.setDate(2, end);
-            preparedStatement1.setDate(3,start);
+            preparedStatement1.setDate(3, start);
 
             ResultSet result = preparedStatement1.executeQuery();
             while (result.next()) {
