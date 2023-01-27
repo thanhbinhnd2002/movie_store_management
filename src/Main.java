@@ -153,7 +153,7 @@ public class Main {
                                     System.out.println("2.Sửa truyện");
                                     System.out.println("3.Quay lại");
                                     System.out.println("---------------------");
-                                    System.out.println("Mời nhập từ(1-3)");
+                                    System.out.println("Mời nhập từ(1-3): ");
                                     String str4 = sc.nextLine();
                                     switch (str4) {
                                         case "1":

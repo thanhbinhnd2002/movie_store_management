@@ -15,32 +15,6 @@ public class CuaHangThuePhim extends MySqlService {
     public CuaHangThuePhim() {
         super();
     }
-
-    public int tinhKhoangThoiGian(Date start, Date end) {
-        int time = 0;
-        try {
-            // calculating the difference b/w startDate and endDate
-            long getDiff = end.getTime() - start.getTime();
-            // using TimeUnit class from java.util.concurrent package
-            long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
-            time = (int) getDaysDiff;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return time;
-    }
-
-//    public double tinhTienChoThue(NguoiThue nguoiThue) {
-//        //NguoiThue nguoiThue = new NguoiThue();
-//        double tienthue = 0;
-//        int soNgayMuon = this.tinhKhoangThoiGian(nguoiThue.getThoiGianMuon(), nguoiThue.getThoiGianTra());
-//        for (MatHang x : matHangThueList) {
-//            tienthue = soNgayMuon * x.getGiaThueTheoNgay();
-//        }
-//        return tienthue;
-//    }
-
     public void thueTruyenPhim(NguoiThue nguoiThue) throws ParseException {
         boolean bool = true;
         while (bool) {
@@ -67,18 +41,23 @@ public class CuaHangThuePhim extends MySqlService {
                         preStatement.setDate(4, date4);
                         preStatement.setDouble(5, nguoiThue.getSoTienCuoc());
                         double tinhtien = 0.0;
+
                         try {
                             String sql = " Select *from `thuemathang` natural join `mathang`where MaNguoiThue=? and MaMatHang=?  ";
                             PreparedStatement preparedStatement1 = conn.prepareStatement(sql);
                             preparedStatement1.setString(1, nguoiThue.getMaNguoiThue());
                             preparedStatement1.setString(2, str);
                             ResultSet result = preparedStatement1.executeQuery();
-                            // calculating the difference b/w startDate and endDate
-                            long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
-                            // using TimeUnit class from java.util.concurrent package
-                            long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+                            if (result.next()){
+                                // calculating the difference b/w startDate and endDate
+                                long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
+                                // using TimeUnit class from java.util.concurrent package
+                                long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
 
-                            tinhtien = getDaysDiff * result.getDouble(11);
+                                tinhtien = getDaysDiff * result.getDouble(11);
+                            }
+
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -347,6 +326,7 @@ public class CuaHangThuePhim extends MySqlService {
             sc.nextLine();
             System.out.println("Nhập dung lượng: ");
             phim.setDungLuong(sc.nextDouble());
+            sc.nextLine();
             System.out.println("Nhập độ phân giải: ");
             phim.setDoPhanGiai(sc.nextLine());
             preStatement.setString(1, phim.getTenMatHang());
@@ -869,11 +849,12 @@ public class CuaHangThuePhim extends MySqlService {
             e.printStackTrace();
         }
         try {
-            String sql = " Select *from `thuemathang` natural join `mathang`where ThoiGianTra>? and ThoiGianMuon<? ";
+            String sql = " Select *from `thuemathang` natural join `mathang`where ThoiGianTra>? and ThoiGianMuon<? and ThoiGianMuon>? ";
             PreparedStatement preparedStatement1 = conn.prepareStatement(sql);
             //String str1 = spdf.format(end);
             preparedStatement1.setDate(1, end);
             preparedStatement1.setDate(2, end);
+            preparedStatement1.setDate(3,start);
 
             ResultSet result = preparedStatement1.executeQuery();
             while (result.next()) {
