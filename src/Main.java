@@ -1,9 +1,10 @@
+import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Main {
+public class Main extends MySqlService {
     public static void main(String[] args) throws ParseException {
         SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
         CuaHangThuePhim cuaHangThuePhim = new CuaHangThuePhim();
@@ -257,9 +258,10 @@ public class Main {
                         System.out.println("1.Thêm người thuê");
                         System.out.println("2.Xóa người thuê");
                         System.out.println("3.Sửa người thuê");
-                        System.out.println("4.Quay lại");
+                        System.out.println("4.Hiện thị người thuê");
+                        System.out.println("5.Quay lại");
                         System.out.println("------------------");
-                        System.out.print("Chọn (1-4): ");
+                        System.out.print("Chọn (1-5): ");
                         String b = sc.nextLine();
                         switch (b) {
                             case "1":
@@ -271,14 +273,14 @@ public class Main {
                                 nguoiThue.setTen(sc.nextLine());
                                 System.out.print("Nhập số điện thoại: ");
                                 nguoiThue.setSoDienThoai(sc.nextLine());
-                                System.out.print("Nhập thời gian mượn: ");
-                                String str1 = sc.nextLine();
-                                Date date1 = spdf.parse(str1);
-                                nguoiThue.setThoiGianMuon(date1);
-                                System.out.print("Nhập thời gian trả: ");
-                                String str2 = sc.nextLine();
-                                Date date2 = spdf.parse(str2);
-                                nguoiThue.setThoiGianTra(date2);
+//                                System.out.print("Nhập thời gian mượn: ");
+//                                String str1 = sc.nextLine();
+//                                Date date1 = spdf.parse(str1);
+//                                nguoiThue.setThoiGianMuon(date1);
+//                                System.out.print("Nhập thời gian trả: ");
+//                                String str2 = sc.nextLine();
+//                                Date date2 = spdf.parse(str2);
+//                                nguoiThue.setThoiGianTra(date2);
                                 System.out.print("Nhập số tiền cược: ");
                                 nguoiThue.setSoTienCuoc(sc.nextDouble());
                                 cuaHangThuePhim.themNguoiThue(nguoiThue);
@@ -293,6 +295,9 @@ public class Main {
                                 cuaHangThuePhim.suaNguoiThue(sc.nextLine());
                                 break;
                             case "4":
+                                cuaHangThuePhim.layDanhSachNguoiThue();
+                                break;
+                            case "5":
                                 bool2 = false;
                                 break;
                             default:

@@ -1,5 +1,6 @@
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -16,12 +17,32 @@ public class CuaHangThuePhim extends MySqlService {
         super();
     }
 
+    public void layDanhSachNguoiThue() {
+        try {
+            String sql1 = "SELECT `MaNguoiThue`, `HoTen`, `SoDienThoai`, `MaMatHang`,`ThoiGianMuon`, `ThoiGianTra`, `TienCuoc`, `TinhTien` from `nguoithue` natural join `thuemathang` where 1";
+            PreparedStatement preStatement = conn.prepareStatement(sql1);
+            ResultSet result = preStatement.executeQuery();
+            while (result.next()) {
+                System.out.println("Mã người thuê là: "+ result.getString(1));
+                System.out.println("Họ tên người thuê là: "+ result.getString(2));
+                System.out.println("Số điện thoại là: "+ result.getString(3));
+                System.out.println("Mã mặt hàng là: "+ result.getString(4));
+                System.out.println("Thời gian mượn là: "+ result.getString(5));
+                System.out.println("Thời gian trả là: "+ result.getString(6));
+                System.out.println("Tiền cược là: "+ result.getString(7));
+                System.out.println("Tính tiền là: "+ result.getString(8));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void thueTruyenPhim(NguoiThue nguoiThue) throws ParseException {
         boolean bool = true;
         while (bool) {
             System.out.println("--------------");
             System.out.println("1.Thuê truyện phim");
-            //System.out.println("2.Tính tiền cho thuê");
             System.out.println("2.Thoát");
             System.out.println("--------------");
             System.out.print("Mời nhập (1-2):");
@@ -31,42 +52,50 @@ public class CuaHangThuePhim extends MySqlService {
                 case "1":
                     System.out.println("Mời nhập mã mặt hàng: ");
                     String str = sc.nextLine();
+                    System.out.println("Mời nhập ngày mượn: ");
+                    String str2 = sc.nextLine();
+                    Date date = spdf.parse(str2);
+                    java.sql.Date date1 = new java.sql.Date(date.getTime());
+                    nguoiThue.setThoiGianMuon(date1);
+                    System.out.println("Mời nhập ngày trả: ");
+                    String str3 = sc.nextLine();
+                    Date date2 = spdf.parse(str3);
+                    java.sql.Date date3 = new java.sql.Date(date2.getTime());
+                    nguoiThue.setThoiGianTra(date3);
+
+
                     try {
                         String sql = "insert into thuemathang (MaNguoiThue,MaMatHang,ThoiGianMuon,ThoiGianTra,TienCuoc,TinhTien) values (?,?,?,?,?,?)";
                         PreparedStatement preStatement = conn.prepareStatement(sql);
                         preStatement.setString(1, nguoiThue.getMaNguoiThue());
                         preStatement.setString(2, str);
-                        java.sql.Date date3 = new java.sql.Date(nguoiThue.getThoiGianMuon().getTime());
-                        preStatement.setDate(3, date3);
-                        java.sql.Date date4 = new java.sql.Date(nguoiThue.getThoiGianTra().getTime());
-                        preStatement.setDate(4, date4);
+                        java.sql.Date date4 = new java.sql.Date(nguoiThue.getThoiGianMuon().getTime());
+                        preStatement.setDate(3, date4);
+                        java.sql.Date date5 = new java.sql.Date(nguoiThue.getThoiGianTra().getTime());
+                        preStatement.setDate(4, date5);
                         preStatement.setDouble(5, nguoiThue.getSoTienCuoc());
                         double tinhtien = 0.0;
                         preStatement.setDouble(6, tinhtien);
                         int result = preStatement.executeUpdate();
 
-                        String sql1 = " Select *from  `mathang`where MaMatHang=?  ";
+                        String sql1 = " Select * from  `mathang` where MaMatHang=?  ";
                         PreparedStatement preparedStatement1 = conn.prepareStatement(sql1);
                         //preparedStatement1.setString(1, nguoiThue.getMaNguoiThue());
                         preparedStatement1.setString(1, str);
                         ResultSet result1 = preparedStatement1.executeQuery();
                         if (result1.next()) {
-
                             // calculating the difference b/w startDate and endDate
                             long getDiff = nguoiThue.getThoiGianTra().getTime() - nguoiThue.getThoiGianMuon().getTime();
                             // using TimeUnit class from java.util.concurrent package
                             long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
                             tinhtien = getDaysDiff * result1.getDouble(6);
-
-
-
                         }
 
                         String sql3 = "update `thuemathang`  set TinhTien=? where MaNguoiThue=? and MaMatHang=?";
                         PreparedStatement preStatement3 = conn.prepareStatement(sql3);
                         preStatement3.setDouble(1, tinhtien);
-                        preStatement3.setString(2,nguoiThue.getMaNguoiThue());
-                        preStatement3.setString(3,str);
+                        preStatement3.setString(2, nguoiThue.getMaNguoiThue());
+                        preStatement3.setString(3, str);
                         int result3 = preStatement3.executeUpdate();
 
                     } catch (Exception e) {
@@ -292,22 +321,6 @@ public class CuaHangThuePhim extends MySqlService {
 //            x.inTTin();
 //        }
         return dsMH;
-    }
-
-    public boolean kiemTraMatHang(String maMatHang) {
-        try {
-            String sql = "select * from mathang where MaMatHang=? ";
-            PreparedStatement preStatement = conn.prepareStatement(sql);
-            preStatement.setString(1, maMatHang);
-
-            ResultSet result = preStatement.executeQuery();
-            if (result.next()) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public boolean chinhSuaPhim(String maMatHang) {
