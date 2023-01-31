@@ -7,7 +7,6 @@
     <list default="true" id="cf694d08-9a87-4cf8-a721-3245e4447f4f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CuaHangThuePhim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CuaHangThuePhim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MySqlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MySqlService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NguoiThue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NguoiThue.java" afterDir="false" />
     </list>

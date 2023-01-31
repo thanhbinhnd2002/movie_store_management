@@ -11,7 +11,7 @@ public class MySqlService {
     // Triển khai phương thức khởi tạo
     public MySqlService(){
         try{
-            String strConn = "jdbc:mysql://localhost/film_management.sql";
+            //String strConn = "jdbc:mysql://localhost/film_management.sql";
             Properties pro = new Properties();
             pro.put("user", "root");
             pro.put("password", "");

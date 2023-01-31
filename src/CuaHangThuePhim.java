@@ -7,9 +7,9 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class CuaHangThuePhim extends MySqlService {
-    private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
-    private List<MatHang> matHangList = new ArrayList<MatHang>();
-    private List<MatHang> matHangThueList = new ArrayList<>();
+//    private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
+//    private List<MatHang> matHangList = new ArrayList<MatHang>();
+//    private List<MatHang> matHangThueList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -23,6 +23,7 @@ public class CuaHangThuePhim extends MySqlService {
             PreparedStatement preStatement = conn.prepareStatement(sql1);
             ResultSet result = preStatement.executeQuery();
             while (result.next()) {
+                System.out.println("-------------------------------");
                 System.out.println("Mã người thuê là: "+ result.getString(1));
                 System.out.println("Họ tên người thuê là: "+ result.getString(2));
                 System.out.println("Số điện thoại là: "+ result.getString(3));
@@ -31,6 +32,7 @@ public class CuaHangThuePhim extends MySqlService {
                 System.out.println("Thời gian trả là: "+ result.getString(6));
                 System.out.println("Tiền cược là: "+ result.getString(7));
                 System.out.println("Tính tiền là: "+ result.getString(8));
+                System.out.println("-------------------------------");
             }
         } catch (Exception e) {
             e.printStackTrace();

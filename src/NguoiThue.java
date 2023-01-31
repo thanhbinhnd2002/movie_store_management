@@ -15,7 +15,7 @@ public class NguoiThue {
     private Date thoiGianMuon;
     private Date thoiGianTra;
     private double tinhtien;
-    private List<MatHang> lstThue = new ArrayList<>();
+    //private List<MatHang> lstThue = new ArrayList<>();
     private double soTienCuoc;
     DateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
     Scanner sc = new Scanner(System.in);
