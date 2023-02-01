@@ -46,8 +46,8 @@ public class Phim extends MatHang{
         System.out.println("ten dao dien la: "+this.getTenTacGia());
         System.out.println("nam xuat ban la: "+ this.getNamXuatBan());
         System.out.println("the loai la : "+ this.getTheLoai());
-        System.out.println("thoi gian la: "+ thoiGian);
-        System.out.println("dung luong la: "+ dungLuong);
+        System.out.println("thoi gian la: "+ thoiGian + " phút");
+        System.out.println("dung luong la: "+ dungLuong + " MB");
         System.out.println("do phan giai la: "+ doPhanGiai);
         System.out.println("-------------------------------------");
     }

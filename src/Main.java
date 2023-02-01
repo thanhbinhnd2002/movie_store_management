@@ -10,9 +10,9 @@ public class Main extends MySqlService {
         CuaHangThuePhim cuaHangThuePhim = new CuaHangThuePhim();
         while (true) {
             System.out.println("----------------------------");
-            System.out.println("cửa hàng cho thuê phim truyện");
-            System.out.println("1.quản lý phim truyện");
-            System.out.println("2.quản lý người thuê");
+            System.out.println("Cửa hàng cho thuê phim truyện");
+            System.out.println("1.Quản lý phim truyện");
+            System.out.println("2.Quản lý người thuê");
             System.out.println("3.Tính doanh thu");
             System.out.println("4.Thoát");
             System.out.println("----------------------------");
@@ -77,24 +77,24 @@ public class Main extends MySqlService {
                                             Truyen truyen = new Truyen();
                                             System.out.println("Mời nhập thông tin: ");
                                             //sc.nextLine();
-                                            System.out.println("Mời nhập mã mặt hàng: ");
+                                            System.out.print("Mời nhập mã mặt hàng: ");
                                             truyen.setMaMatHang(sc.nextLine());
-                                            System.out.println("Mời nhập tên mặt hàng: ");
+                                            System.out.print("Mời nhập tên mặt hàng: ");
                                             truyen.setTenMatHang(sc.nextLine());
-                                            System.out.println("Mời nhập tên tác giả: ");
+                                            System.out.print("Mời nhập tên tác giả: ");
                                             truyen.setTenTacGia(sc.nextLine());
-                                            System.out.println("Mời nhập giá thuê theo ngày: ");
+                                            System.out.print("Mời nhập giá thuê theo ngày: ");
                                             truyen.setGiaThueTheoNgay(sc.nextDouble());
                                             sc.nextLine();
-                                            System.out.println("Mời nhập năm xuất bản: ");
+                                            System.out.print("Mời nhập năm xuất bản: ");
                                             truyen.setNamXuatBan(sc.nextInt());
                                             sc.nextLine();
-                                            System.out.println("Mời nhập thể loại: ");
+                                            System.out.print("Mời nhập thể loại: ");
                                             truyen.setTheLoai(sc.nextLine());
-                                            System.out.println("Mời nhập số trang: ");
+                                            System.out.print("Mời nhập số trang: ");
                                             truyen.setSoTrang(sc.nextInt());
                                             sc.nextLine();
-                                            System.out.println("Mời nhập khổ giấy: ");
+                                            System.out.print("Mời nhập khổ giấy: ");
                                             String str = sc.nextLine();
                                             switch (str) {
                                                 case "A0":
@@ -113,7 +113,7 @@ public class Main extends MySqlService {
                                                     System.out.println("Nhập sai");
                                                     break;
                                             }
-                                            System.out.println("Mời nhập ngôn ngữ: ");
+                                            System.out.print("Mời nhập ngôn ngữ: ");
                                             truyen.setNgonNgu(sc.nextLine());
                                             cuaHangThuePhim.themTruyen(truyen);
                                             break;

@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+
+
 public class CuaHangThuePhim extends MySqlService {
 //    private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
 //    private List<MatHang> matHangList = new ArrayList<MatHang>();
@@ -13,10 +15,11 @@ public class CuaHangThuePhim extends MySqlService {
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    //Constructor
     public CuaHangThuePhim() {
         super();
     }
-
+    // Phương thúc layDanhSachNguoiThue để hiện thị thông tin của người thuê
     public void layDanhSachNguoiThue() {
         try {
             String sql1 = "SELECT `MaNguoiThue`, `HoTen`, `SoDienThoai`, `MaMatHang`,`ThoiGianMuon`, `ThoiGianTra`, `TienCuoc`, `TinhTien` from `nguoithue` natural join `thuemathang` where 1";
@@ -39,7 +42,7 @@ public class CuaHangThuePhim extends MySqlService {
         }
 
     }
-
+    //Phương thức thueTruyenPhim để người thuê thực hiên việc thuê truyện phim
     public void thueTruyenPhim(NguoiThue nguoiThue) throws ParseException {
         boolean bool = true;
         while (bool) {
@@ -113,6 +116,7 @@ public class CuaHangThuePhim extends MySqlService {
         }
     }
 
+    // Phương thức themNguoiThue để thêm thông tin người thuê
     public boolean themNguoiThue(NguoiThue nguoiThue) {
         try {
             String sql1 = "insert into nguoithue values (?,?,?)";
@@ -180,6 +184,7 @@ public class CuaHangThuePhim extends MySqlService {
 
     }
 
+    //Phương thức themPhim để thêm thông tin về phim
     public boolean themPhim(Phim a) {
         try {
             String sql = "insert into mathang values (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -206,12 +211,13 @@ public class CuaHangThuePhim extends MySqlService {
         return false;
     }
 
-
+//Phương thức suaNguoiThue để sửa thông tin người thuê
     public boolean suaNguoiThue(String maNguoiThue) throws ParseException {
         NguoiThue nguoiThue = new NguoiThue();
         try {
             String sql = "update nguoithue set HoTen=?, SoDienThoai=? where MaNguoiThue=?";
             PreparedStatement preStatement = conn.prepareStatement(sql);
+            //sc.nextLine();
             System.out.print("Nhập tên người thuê: ");
             nguoiThue.setTen(sc.nextLine());
             System.out.print("Nhập số điện thoại: ");
@@ -259,6 +265,7 @@ public class CuaHangThuePhim extends MySqlService {
     }
 
 
+    //Phương thức layDanhSachMatHang để in thông tin các mặt hàng.
     public List<MatHang> layDanhSachMatHang() {
         List<MatHang> dsMH = new ArrayList<>();
         try {
@@ -325,6 +332,7 @@ public class CuaHangThuePhim extends MySqlService {
         return dsMH;
     }
 
+    //Phương thức chinhSuaPhim để sửa thông tin của phim
     public boolean chinhSuaPhim(String maMatHang) {
         Phim phim = new Phim();
         try {
@@ -369,6 +377,7 @@ public class CuaHangThuePhim extends MySqlService {
         }
         return false;
     }
+    //Phương thức chinhSuaTruyen để sửa thông tin truyện
 
     public boolean chinhSuaTruyen(String MaMatHang) {
         Truyen truyen = new Truyen();
@@ -453,19 +462,26 @@ public class CuaHangThuePhim extends MySqlService {
         return false;
     }
 
+    //Phương thức xoaNguoiThue để xóa thông tin ngươi thuê
 
     public boolean xoaNguoiThue(String a) {
         try {
-            String sql = "delete from nguoithue where MaNguoiThue=?";
+            String sql = "delete from thuemathang where MaNguoiThue=?";
             PreparedStatement preStatement = conn.prepareStatement(sql);
             preStatement.setString(1, a);
             int result = preStatement.executeUpdate();
-            if (result > 0) {
-                return true;
-            }
+//            if (result > 0) {
+//                return true;
+//            }
+            String sql1 = "delete from nguoithue where MaNguoiThue=?";
+            PreparedStatement preStatement1 = conn.prepareStatement(sql1);
+            preStatement1.setString(1, a);
+            int result1 = preStatement1.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
         return false;
 
     }
