@@ -9,9 +9,9 @@ import java.util.concurrent.TimeUnit;
 
 
 public class CuaHangThuePhim extends MySqlService {
-//    private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
-//    private List<MatHang> matHangList = new ArrayList<MatHang>();
-//    private List<MatHang> matHangThueList = new ArrayList<>();
+    private List<NguoiThue> nguoiThueList = new ArrayList<NguoiThue>();
+    private List<MatHang> matHangList = new ArrayList<MatHang>();
+    private List<MatHang> matHangThueList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat spdf = new SimpleDateFormat("yyyy-MM-dd");
 
