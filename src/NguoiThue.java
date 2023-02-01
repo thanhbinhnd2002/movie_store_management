@@ -23,13 +23,14 @@ public class NguoiThue {
     public NguoiThue(){
     }
 
-    public NguoiThue(String maNguoiThue, String ten, String soDienThoai, Date thoiGianMuon, Date thoiGianTra, double soTienCuoc) {
+    public NguoiThue(String maNguoiThue, String ten, String soDienThoai, Date thoiGianMuon, Date thoiGianTra, double soTienCuoc,double tinhtien) {
         this.maNguoiThue = maNguoiThue;
         this.ten = ten;
         this.soDienThoai = soDienThoai;
         this.thoiGianMuon = thoiGianMuon;
         this.thoiGianTra = thoiGianTra;
         this.soTienCuoc = soTienCuoc;
+        this.tinhtien = tinhtien;
     }
 
     public String getMaNguoiThue() {

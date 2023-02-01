@@ -47,80 +47,82 @@ public class Main extends MySqlService {
                                     String i = sc.nextLine();
                                     switch (i) {
                                         case "1":
-                                            Phim phim = new Phim();
+                                            //Phim phim = new Phim();
+                                            MatHang matHang = new Phim();
                                             System.out.println("Mời nhập thông tin: ");
                                             //sc.nextLine();
                                             System.out.print("Mời nhập mã mặt hàng: ");
-                                            phim.setMaMatHang(sc.nextLine());
+                                            ((Phim)matHang).setMaMatHang(sc.nextLine());
                                             System.out.print("Mời nhập tên mặt hàng: ");
-                                            phim.setTenMatHang(sc.nextLine());
+                                            ((Phim)matHang).setTenMatHang(sc.nextLine());
                                             System.out.print("Mời nhập tên tác giả: ");
-                                            phim.setTenTacGia(sc.nextLine());
+                                            ((Phim)matHang).setTenTacGia(sc.nextLine());
                                             System.out.print("Mời nhập năm xuất bản: ");
-                                            phim.setNamXuatBan(sc.nextInt());
+                                            ((Phim)matHang).setNamXuatBan(sc.nextInt());
                                             sc.nextLine();
                                             System.out.print("Mời nhập thể loại: ");
-                                            phim.setTheLoai(sc.nextLine());
+                                            ((Phim)matHang).setTheLoai(sc.nextLine());
                                             System.out.print("Mời nhập giá thuê theo ngày: ");
-                                            phim.setGiaThueTheoNgay(sc.nextDouble());
+                                            ((Phim)matHang).setGiaThueTheoNgay(sc.nextDouble());
                                             System.out.print("Mời nhập thời gian: ");
-                                            phim.setThoiGian(sc.nextInt());
+                                            ((Phim)matHang).setThoiGian(sc.nextInt());
                                             sc.nextLine();
                                             System.out.print("Mời nhập dung lượng: ");
-                                            phim.setDungLuong(sc.nextDouble());
+                                            ((Phim)matHang).setDungLuong(sc.nextDouble());
                                             sc.nextLine();
                                             System.out.print("Độ phân giải: ");
-                                            phim.setDoPhanGiai(sc.nextLine());
-                                            cuaHangThuePhim.themPhim(phim);
+                                            ((Phim)matHang).setDoPhanGiai(sc.nextLine());
+                                            cuaHangThuePhim.themMatHang((Phim)matHang);
                                             break;
                                         case "2":
-                                            Truyen truyen = new Truyen();
+//                                            Truyen truyen = new Truyen();
+                                            MatHang matHang1 = new Truyen();
                                             System.out.println("Mời nhập thông tin: ");
                                             //sc.nextLine();
                                             System.out.print("Mời nhập mã mặt hàng: ");
-                                            truyen.setMaMatHang(sc.nextLine());
+                                            matHang1.setMaMatHang(sc.nextLine());
                                             System.out.print("Mời nhập tên mặt hàng: ");
-                                            truyen.setTenMatHang(sc.nextLine());
+                                            matHang1.setTenMatHang(sc.nextLine());
                                             System.out.print("Mời nhập tên tác giả: ");
-                                            truyen.setTenTacGia(sc.nextLine());
+                                            matHang1.setTenTacGia(sc.nextLine());
                                             System.out.print("Mời nhập giá thuê theo ngày: ");
-                                            truyen.setGiaThueTheoNgay(sc.nextDouble());
+                                            matHang1.setGiaThueTheoNgay(sc.nextDouble());
                                             sc.nextLine();
                                             System.out.print("Mời nhập năm xuất bản: ");
-                                            truyen.setNamXuatBan(sc.nextInt());
+                                            matHang1.setNamXuatBan(sc.nextInt());
                                             sc.nextLine();
                                             System.out.print("Mời nhập thể loại: ");
-                                            truyen.setTheLoai(sc.nextLine());
+                                            matHang1.setTheLoai(sc.nextLine());
                                             System.out.print("Mời nhập số trang: ");
-                                            truyen.setSoTrang(sc.nextInt());
+                                            ((Truyen)matHang1).setSoTrang(sc.nextInt());
                                             sc.nextLine();
                                             System.out.print("Mời nhập khổ giấy: ");
                                             String str = sc.nextLine();
                                             switch (str) {
                                                 case "A0":
-                                                    truyen.setKhoGiay(KhoGiay.A0);
+                                                    ((Truyen)matHang1).setKhoGiay(KhoGiay.A0);
                                                     break;
                                                 case "A1":
-                                                    truyen.setKhoGiay(KhoGiay.A1);
+                                                    ((Truyen)matHang1).setKhoGiay(KhoGiay.A1);
                                                     break;
                                                 case "A2":
-                                                    truyen.setKhoGiay(KhoGiay.A2);
+                                                    ((Truyen)matHang1).setKhoGiay(KhoGiay.A2);
                                                     break;
-                                                case "A3": truyen.setKhoGiay(KhoGiay.A3);break;
-                                                case "A4": truyen.setKhoGiay(KhoGiay.A4);break;
-                                                case "A5": truyen.setKhoGiay(KhoGiay.A5);break;
+                                                case "A3": ((Truyen)matHang1).setKhoGiay(KhoGiay.A3);break;
+                                                case "A4": ((Truyen)matHang1).setKhoGiay(KhoGiay.A4);break;
+                                                case "A5": ((Truyen)matHang1).setKhoGiay(KhoGiay.A5);break;
                                                 default:
                                                     System.out.println("Nhập sai");
                                                     break;
                                             }
                                             System.out.print("Mời nhập ngôn ngữ: ");
-                                            truyen.setNgonNgu(sc.nextLine());
-                                            cuaHangThuePhim.themTruyen(truyen);
+                                            ((Truyen)matHang1).setNgonNgu(sc.nextLine());
+                                            cuaHangThuePhim.themMatHang(((Truyen)matHang1));
                                             break;
                                         case "3":
                                             bool1 = false;
                                     }
-                                    //break;
+
                                 }
                                 break;
                             case "2":
@@ -135,7 +137,7 @@ public class Main extends MySqlService {
                                     switch (j) {
                                         case "1":
                                             System.out.println("Mời nhập mã mặt hàng muốn xóa: ");
-                                            // sc.nextLine();
+
                                             cuaHangThuePhim.xoaMatHang(sc.nextLine());
                                             break;
                                         case "2":
@@ -316,10 +318,6 @@ public class Main extends MySqlService {
                     Date date4 = spdf.parse(str2);
                     java.sql.Date date2 = new java.sql.Date(date4.getTime());
                     System.out.println("Doanh thu là: "+ cuaHangThuePhim.tinhDoanhThu(date1,date2));
-//                    for (MatHang x : cuaHangThuePhim.timKiem(date1,date2)
-//                    ) {
-//                        x.inTTin();
-//                    }
                     break;
                 case "4":
                     System.exit(0);
