@@ -1,4 +1,4 @@
-
+// Author: Nghiem Hong Dang
 
 import java.sql.*;
 import java.util.Properties;
@@ -15,7 +15,7 @@ public class MySqlService {
             Properties pro = new Properties();
             pro.put("user", "root");
             pro.put("password", "");
-            conn = DriverManager.getConnection(strConn, "root","");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/film_management", "root","");
 
         } catch (Exception e){
             conn = null;

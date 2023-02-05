@@ -1,3 +1,4 @@
+// Author: Pham Thanh Binh
 public class Truyen extends MatHang{
     private  int soTrang;
     private  KhoGiay khoGiay;
@@ -42,14 +43,14 @@ public class Truyen extends MatHang{
     public void inTTin() {
         super.inTTin();
         System.out.println("-------------------------------------");
-        System.out.println("Mã truyện là: "+ this.getMaMatHang());
-        System.out.println("Tên truyện là: "+ this.getTenMatHang());
-        System.out.println("Tên tác giả là: "+this.getTenTacGia());
-        System.out.println("Năm xuất bản là: "+ this.getNamXuatBan());
-        System.out.println("Thể loại là: "+ this.getTheLoai());
-        System.out.println("Số trang là:"+ soTrang);
-        System.out.println("Khổ giấy là: "+ khoGiay);
-        System.out.println("Ngôn ngữ là: "+ ngonNgu);
+        System.out.println("Ma truyen la: "+ this.getMaMatHang());
+        System.out.println("Ten truyen la: "+ this.getTenMatHang());
+        System.out.println("Ten tac gia la: "+this.getTenTacGia());
+        System.out.println("Nam xuat ban la: "+ this.getNamXuatBan());
+        System.out.println("The loai la: "+ this.getTheLoai());
+        System.out.println("So trang la:"+ soTrang);
+        System.out.println("Kho giay la: "+ khoGiay);
+        System.out.println("Ngon ngu la: "+ ngonNgu);
         System.out.println("-------------------------------------");
     }
 }

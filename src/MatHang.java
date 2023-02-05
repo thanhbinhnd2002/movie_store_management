@@ -1,3 +1,4 @@
+// Author: Pham Thanh Binh
 public abstract class MatHang {
     private  String maMatHang;
     private  String tenMatHang;

@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf694d08-9a87-4cf8-a721-3245e4447f4f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CuaHangThuePhim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CuaHangThuePhim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KhoGiay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KhoGiay.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MatHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MatHang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MySqlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MySqlService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NguoiThue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NguoiThue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Phim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Phim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Truyen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Truyen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +31,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -35,14 +47,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/code/java/baitapoop/baitaplonooptuan7/code/src/bai4",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Font"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\java\baitapoop\baitaplonoop\movie_store_management\src" />
@@ -83,6 +92,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CuaHangThuePhim_java$Main.ic" NAME="Main Coverage Results" MODIFIED="1675237579225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
